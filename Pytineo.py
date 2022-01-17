@@ -9,9 +9,8 @@ Created on Thu Nov 11 17:27:47 2021
 #Début du code
 import streamlit as st
 import pandas as pd
-import numpy as np
 
-from plotly.subplots import make_subplots
+
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -23,22 +22,20 @@ from streamlit_folium import folium_static
 #from openrouteservice import client
 
 from sklearn.cluster import KMeans
-import re
 
-
-from IPython.core.display import display, HTML
 import streamlit.components.v1 as components
 
 import threading
 import time
 
 import sys
-sys.path.append('/Gilles/OneDrive/Datascientest/Streamlit')
+sys.path.append('/Documents/GitHub/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
 
-from google_drive_downloader import GoogleDriveDownloader as gdd
+
+
 
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
@@ -69,9 +66,6 @@ if sidebar=="Acceuil":
 
 #Seconde page 
 if sidebar=="Visualisations":
-    gdd.download_file_from_google_drive(file_id='1leVB4XiOYZdRFGZGLGIIqkEkH9duLX8j',
-                                    dest_path="/Gilles/OneDrive/Datascientest/Streamlit")
-    
     col1, col2, col3 = st.columns([3,1,1])
     with col1:
         st.write("")
@@ -80,239 +74,8 @@ if sidebar=="Visualisations":
     with col3:
         st.image("Pytineo_logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
             
-       
-    date_extraction = '13122021'
-    df_fma_jour= pd.read_csv("datatourisme.fma.20211213.csv")
-    df_tour_jour= pd.read_csv("datatourisme.tour.20211213.csv")
-    df_place_jour= pd.read_csv("datatourisme.place.20211213.csv")
-    df_product_jour= pd.read_csv("datatourisme.product.20211213.csv")
-    liste_departements = ['01', '02', '03', '04', '05', '06', 
-                        '07', '08', '09', '10', '11', '12', '13','14', '15', '16', '17', '18', '19', '2A', '2B', '21', '22', '23', 
-                        '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', 
-                        '42', '43', '44', '45', '46', '47', '48', '49', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', 
-                        '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', 
-                        '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94' ,'95']  
     
-    ####### definition de la fonction ##########
-    @st.cache(persist=True)
-    def cleanup () :
-      ## Trt fichier FMA
-      df = df_fma_jour
-      indices_booleens = df['Code_postal_et_commune'].str[0:2].isin(liste_departements)       ## le code postal de la colonne "Code_postal_et_commune" figure-t-il ou non dans la liste des départements (retour d'une Serie à TRUE ou FALSE
-      df_fma = df[indices_booleens]                                                           ## création d'un dataframe ne contenant que les lignes dont le booléen a été retourné à TRUE            
-    
-    ## Trt idem pour fichier PRODUCT
-      df = df_product_jour
-      indices_booleens = df['Code_postal_et_commune'].str[0:2].isin(liste_departements)  ## idem
-      df_product = df[indices_booleens]
-    
-    ## Trt idem pour fichier TOUR
-      df = df_tour_jour
-      indices_booleens = df['Code_postal_et_commune'].str[0:2].isin(liste_departements)  ## idem  
-      df_tour = df[indices_booleens]
-    
-    ## Trt idem pour fichier PLACE
-      df = df_place_jour
-      indices_booleens = df['Code_postal_et_commune'].str[0:2].isin(liste_departements)  ## idem
-      df_place = df[indices_booleens]
-    
-    
-    ##-----------------------
-    ## Lecture des fichiers
-    ##-----------------------
-    
-      df_TOUR_POI_mots_cle = pd.read_csv("datatourisme.tour.POI_mots_cle.PACA.csv")
-      df_PRODUCT_POI_mots_cle = pd.read_csv("datatourisme.product.POI_mots_cle.PACA.csv")
-      df_PLACE_POI_mots_cle = pd.read_csv("datatourisme.place.POI_mots_cle.PACA.csv")
-    
-      df_TOUR_POI = df_tour
-      df_PRODUCT_POI = df_product
-      df_PLACE_POI = df_place 
-    
-    ##-----------------------------------------------------------------------
-    ## Initialisation des dictionnaires de référentiels thématiques de POI 
-    ##-----------------------------------------------------------------------
-    
-      dict_TOUR_POI_corr_mot_cle_URL_francais = {}                                       ## dataframe TOUR - correspondance entre le mot clé de POI contenu dans l'URL et le mot clé en français                                                           
-      dict_TOUR_POI_corr_mot_cle_francais_thematique = {}                                ## correspondance entre le mot clé en français et la thématique du POI
-    
-      dict_PRODUCT_POI_corr_mot_cle_URL_francais = {}                                    ## idem pour dataframe PRODUCT                                                           
-      dict_PRODUCT_POI_corr_mot_cle_francais_thematique = {}
-    
-      dict_PLACE_POI_corr_mot_cle_URL_francais = {}                                      ## idem pour dataframe PLACE                                                           
-      dict_PLACE_POI_corr_mot_cle_francais_thematique = {}
-    
-    ##------------------------------------------------------------------------------------------
-    ## Alimentation des dictionnaires à partir des dataframes référentiels thématiques de POI
-    ##------------------------------------------------------------------------------------------
-    
-    ## TOUR
-      for i in range(len(df_TOUR_POI_mots_cle)): 
-    
-    ## alimentation du dictionnaire 'dict_type_url_type_simplifie' à partir du dataframe 'df_TOUR_POI_mots_cle'
-          dict_TOUR_POI_corr_mot_cle_URL_francais[df_TOUR_POI_mots_cle.loc[i,'Mot_clé']] = df_TOUR_POI_mots_cle.loc[i, 'Mot_clé_en_francais'] 
-        
-    ## alimentation du dictionnaire 'dict_type_simplifie_thematique' à partir du dataframe 'df_TOUR_POI_mots_cle'   
-          dict_TOUR_POI_corr_mot_cle_francais_thematique[df_TOUR_POI_mots_cle.loc[i,'Mot_clé_en_francais']] = df_TOUR_POI_mots_cle.loc[i, 'Catégorie_thématique']   
-        
-    ## PRODUCT
-      for i in range(len(df_PRODUCT_POI_mots_cle)): 
-       
-    ## alimentation du dictionnaire 'dict_type_url_type_simplifie' à partir du dataframe 'df_PRODUCT_POI_mots_cle'
-          dict_PRODUCT_POI_corr_mot_cle_URL_francais[df_PRODUCT_POI_mots_cle.loc[i,'Mot_clé']] = df_PRODUCT_POI_mots_cle.loc[i, 'Mot_clé_en_francais'] 
-        
-    ## alimentation du dictionnaire 'dict_type_simplifie_thematique' à partir du dataframe 'df_PRODUCT_POI_mots_cle'   
-          dict_PRODUCT_POI_corr_mot_cle_francais_thematique[df_PRODUCT_POI_mots_cle.loc[i,'Mot_clé_en_francais']] = df_PRODUCT_POI_mots_cle.loc[i, 'Catégorie_thématique']                 
-        
-    ## PLACE
-      for i in range(len(df_PLACE_POI_mots_cle)):   
-                      
-    ## alimentation du dictionnaire 'dict_type_url_type_simplifie' à partir du dataframe 'df_PLACE_POI_mots_cle'
-          dict_PLACE_POI_corr_mot_cle_URL_francais[df_PLACE_POI_mots_cle.loc[i,'Mot_clé']] = df_PLACE_POI_mots_cle.loc[i, 'Mot_clé_en_francais'] 
-        
-    ## alimentation du dictionnaire 'dict_type_simplifie_thematique' à partir du dataframe 'df_PLACE_POI_mots_cle'   
-          dict_PLACE_POI_corr_mot_cle_francais_thematique[df_PLACE_POI_mots_cle.loc[i,'Mot_clé_en_francais']] = df_PLACE_POI_mots_cle.loc[i, 'Catégorie_thématique']   
-    
-    ##-----------------------
-    ## Fonctions génériques
-    ##-----------------------
-    
-    ## Traitement spécifique de l'URL de la catégorie des POI présente dans le dictionnaire 'dict_xxxx_POI_corr_mot_cle_URL_francais'
-      def fct_categorie(categorie_URL, dictionnaire):    
-          liste_mots_cle = re.findall(r"[#][a-z]+", categorie_URL, re.I)                 ## recherche dans l'URL de la catégorie des chaînes alphabétiques préfixées par le carctère '#'
-        
-          for i, mot_cle in enumerate(liste_mots_cle):
-              liste_mots_cle[i] = mot_cle[1:]                                            ## élimination des chaînes retournées du caractère '#'
-        
-        
-          for mot_cle in liste_mots_cle:
-              for cle,valeur in dictionnaire.items():                                    ## l'une au moins des chaînes de carctères retournées est-elle présente dans le dictionnaire ?
-                  if mot_cle == cle:                                                 
-                      return valeur  
-                 
-    ## Traitement spécifique de la thématique du POI présente dans le dictionnaire 'dict_xxxx_POI_corr_mot_cle_francais_thematique'
-      def fct_thematique(mot_cle, dictionnaire):  
-          for cle,valeur in dictionnaire.items():   
-              if mot_cle == cle:   
-                  return valeur                                                          ## retourne la thématique assosiée au mot clé du POI 
-     
-    ## Traitement du nom du département
-      def fct_nom_departement(code_departement):  
-            for i, code_dept in enumerate(df_ref_cd_dept_nom['Code_département']):
-                if code_dept == code_departement:
-                    return df_ref_cd_dept_nom['Nom_département'][i]                        ## retourne le nom du département   
-            
-    ## Traitement du nombre d'habitants du département
-      def fct_population_dept(code_departement):  
-          for i, code_dept in enumerate(df_ref_cd_dept_nom['Code_département']):
-              if code_dept == code_departement:
-                  return df_ref_cd_dept_nom['Nombre_habitants'][i]                       ## retourne le nombre d'habitants du département
-            
-    ## Traitement du tourisme annuel
-      def fct_tourisme_dept(code_departement):  
-          for i, code_dept in enumerate(df_ref_cd_dept_nom['Code_département']):
-              if code_dept == code_departement:
-                  return df_ref_cd_dept_nom['Fréquentation_année_2010'][i]               ## retourne le nombre de touristes annules du département
-            
-    ## Traitement des noms de communes manquants   
-      def fct_nom_commune(code_postal):                                                                                       
-          liste = list(df_ref_cd_postal_commune['Nom_commune'][df_ref_cd_postal_commune['Code_postal'] == code_postal])       
-          return liste[0]                                                                ## retourne la première occurrence du nom de commune correspondant au code postal passé en paramètre    
-          
-    ##--------------------------------------------------------------------------
-    ## Traitement des mots clé des fichiers thématiques (TOUR, PLACE, PRODUCT)
-    ##--------------------------------------------------------------------------
-    
-    ## Fichier TOUR - recherche dans le dictionnaire d'un mot clé de l'URL Catégorie
-      df_TOUR_POI['Mot_clé_POI'] = df_TOUR_POI['Categories_de_POI'].apply(lambda x: fct_categorie(x,dict_TOUR_POI_corr_mot_cle_URL_francais))               ## ajout d'une colonne 'Mot clé' au dataframe
-    
-      df_TOUR_POI['Thématique_POI'] = df_TOUR_POI['Mot_clé_POI'].apply(lambda x: fct_thematique(x,dict_TOUR_POI_corr_mot_cle_francais_thematique))          ## ajout d'une colonne 'Thématique' au dataframe
-    
-    ## Fichier PRODUCT - idem
-      df_PRODUCT_POI['Mot_clé_POI'] = df_PRODUCT_POI['Categories_de_POI'].apply(lambda x: fct_categorie(x,dict_PRODUCT_POI_corr_mot_cle_URL_francais))      ## ajout d'une colonne 'Mot clé' au dataframe
-    
-      df_PRODUCT_POI['Thématique_POI'] = df_PRODUCT_POI['Mot_clé_POI'].apply(lambda x: fct_thematique(x,dict_PRODUCT_POI_corr_mot_cle_francais_thematique)) ## ajout d'une colonne 'Thématique' au dataframe
-    
-    ## Fichier PLACE - idem
-      df_PLACE_POI['Mot_clé_POI'] = df_PLACE_POI['Categories_de_POI'].apply(lambda x: fct_categorie(x,dict_PLACE_POI_corr_mot_cle_URL_francais))            ## ajout d'une colonne 'Mot clé' au dataframe
-    
-      df_PLACE_POI['Thématique_POI'] = df_PLACE_POI['Mot_clé_POI'].apply(lambda x: fct_thematique(x,dict_PLACE_POI_corr_mot_cle_francais_thematique))       ## ajout d'une colonne 'Thématique' au dataframe
-    
-    ##--------------------------------------------------------------------------
-    ## Regroupement des fichiers thématiques (TOUR, PLACE, PRODUCT)
-    ##--------------------------------------------------------------------------
-    
-      df_POI = pd.concat([df_TOUR_POI, df_PRODUCT_POI, df_PLACE_POI])
-    
-    ##-----------------------------------------
-    ## Ajout de colonnes au dataframe df_POI
-    ##-----------------------------------------
-    
-    ## création d'un dataframe par lecture du référentiel des communes INSEE
-      df_ref_cd_postal_commune = pd.read_csv("Communes_codes_postaux.csv", sep=';', dtype='object')           
-    
-    ## création d'un dataframe par lecture du référentiel des départements
-      df_ref_cd_dept_nom = pd.read_csv("Départements.csv",  sep=',', dtype='object')                      
-           
-    ## création colonne 'Code département'
-      df_POI['Code_département'] = df_POI['Code_postal_et_commune'].apply(lambda x: x[0:2])  
-    
-    ## création colonne 'Nom département'
-      df_POI['Nom_département'] = df_POI['Code_département'].apply(fct_nom_departement)
-    
-    ## création colonne 'Population du département'
-      df_POI['Nbre_habitants'] = df_POI['Code_département'].apply(fct_population_dept)
-    
-    ## création colonne 'Population touristique du département'
-      df_POI['Nbre_touristes'] = df_POI['Code_département'].apply(fct_tourisme_dept)
-      
-    ## création colonne 'Code postal'
-      df_POI['Code_postal'] = df_POI['Code_postal_et_commune'].apply(lambda x: x.split('#')[0])
-    
-    ## création colonne 'Nom commune'
-      df_POI['Nom_commune'] = df_POI['Code_postal_et_commune'].apply(lambda x: x.split('#')[1])
-    
-    ##---------------------------------------------------------------------
-    ## Réordonnancement des colonnes / élimination des colonnes inutiles
-    ##---------------------------------------------------------------------
-    
-      df_POI = df_POI[['Nom_du_POI', 'Mot_clé_POI', 'Thématique_POI', 'URI_ID_du_POI', 'Description', 'Latitude', 'Longitude', 'Adresse_postale', 'Code_département', 'Nom_département',
-                     'Code_postal', 'Nom_commune', 'Nbre_habitants', 'Nbre_touristes']]
-    
-    ## Renommage des colonnes
-      df_POI.columns = ['Nom_du_POI', 'Mot_clé_POI', 'Thématique_POI', 'Description_courte', 'Description_longue', 'Latitude', 'Longitude', 'Adresse_postale', 'Code_département', 'Nom_département',
-                     'Code_postal', 'Nom_commune', 'Nbre_habitants', 'Nbre_touristes']
-    
-    ##------------------------------------------------------------------------
-    ## Traitement des valeurs manquantes du jeu de données de type POI TOUR
-    ##------------------------------------------------------------------------
-      df_POI = df_POI.dropna(subset = ['Mot_clé_POI'], axis=0)                                                      ## élimination des lignes avec mots clé non renseignés (types POI)
-    
-      df_POI['Adresse_postale'] = df_POI['Adresse_postale'].fillna('Adresse non précisée')                          ## gestion des adresses non renseignées
-      df_POI['Description_courte'] = df_POI['Description_courte'].fillna('Description courte non précisée')         ## gestion des descriptions courtes non renseignées
-      df_POI['Description_longue'] = df_POI['Description_longue'].fillna('Description longue non précisée')         ## gestion des descriptions longues non renseignées
-    
-    ## gestion des noms de commune non renseignés
-      df_temp_cd_postal_commune = pd.DataFrame(columns=['Code_postal', 'Nom_commune'])                              ## création d'un dataframe temporaire
-      df_temp_cd_postal_commune['Code_postal'] = df_POI['Code_postal'][df_POI['Nom_commune'].isna()]                ## alimentation de la colonne 'Code postal' du dataframe temporaire
-    
-      df_temp_cd_postal_commune['Nom_commune'] = df_temp_cd_postal_commune['Code_postal'].apply(fct_nom_commune)    ## alimentation de la colonne 'Nom_commune' du dataframe temporaire
-    
-      df_POI['Nom_commune'] = df_POI['Nom_commune'].fillna(df_temp_cd_postal_commune['Nom_commune'])                ## remplacement des noms de commune manquants par ceux contenus dans le df temporaire  
-        
-      df_POI = df_POI.dropna(subset = ['Nom_commune'], axis=0)                                                      ## élimination des lignes avec noms de commune non renseignés
-    
-    ## suppression des lignes dupliquées sur le nom du POI et ses coordonnées géographiques
-      df_POI = df_POI.drop_duplicates(subset=['Nom_du_POI', 'Latitude', 'Longitude'])
-    
-      print(df_POI.info())
-        
-    ## Export du fichier dans le répertoire du projet Streamlit
-    ##-----------------------
-      return df_POI.to_csv('df.csv', index = False) 
-  
-   #Création du dataframe pour la suite du code
-    df = pd.read_csv("df.csv")
+    df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
     
     
     analysis = st.container()
@@ -450,7 +213,7 @@ if sidebar=="Démos":
     source_code = html_file.read()
     components.html(source_code, height=600, width=1000)
     #le df.csv est créé et sauvegardé dans le répertoire du projet Streamlit, on peu simplement le rappeler sans relancer le code initial
-    df = pd.read_csv("df.csv")
+    df = pd.read_csv("df.datatourisme.POI_OK_20210921.PACA.csv")
     centroid= pd.read_csv("Data/CentroidFrance.csv")
     
     #DROP DOWN MENU
@@ -552,7 +315,7 @@ if sidebar=="Démos":
 
 #Page 4            
 if sidebar=="Test cartes multiples":
-    df_POI= pd.read_csv("df.csv")
+    df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
     nom_commune_reference = 'Arles'
     duree_du_sejour  = 5                                                                               
     
@@ -705,7 +468,11 @@ if sidebar=="Test cartes multiples":
             no_FMAP = str(cle)+ '_' + str(i)
             filename = ("carte_centroid_itineraire_%s.html" % no_FMAP)
             fmap.save('Streamlit/'+filename)
-            ##webbrowser.open(filename)
             no_centroid_deja_traite = analyse_resultats_par_itineraire(cle, i, itineraire, globals()[f"df_POI_zoom_sur_centroid_{cle}"], carte_openrouteservice, pos_geo_itineraire, long_itineraire, no_centroid_deja_traite)
             analyse_resultats_par_carte(cle, i, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto, dict_attributs_sejour)
+            
+
+            
+
+            
 

@@ -25,6 +25,9 @@ import math
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
+import openrouteservice 
+from openrouteservice import client
+
 
 ##------------
 ## Fonctions
@@ -213,7 +216,7 @@ def recherche_generique(restauration_souhaitee, restauration_rapide_souhaitee, g
         liste_mot_cle_POI_resto.append(mot_cle_resto_gene[0])
         liste_description_POI_resto.append(desc_courte_resto_gene[0])        
                                                                      
-        sous_themes_POI = list(df_themes_POI['Sous_thème_POI'][df_themes_POI['Thématique_POI'] == theme_resto_gene[0]])  
+        sous_themes_POI = list(df_themes_POI['Sous_thème_POI'][df_themes_POI['Thematique_POI'] == theme_resto_gene[0]])  
         icone_POI_resto = []
         for sous_theme in sous_themes_POI:                                       
             if sous_theme == mot_cle_resto_gene[0]:
@@ -479,6 +482,8 @@ def StartPoint(df_POI_zoom_sur_centroid, dict_attributs_itineraire, dict_attribu
     fmap, carte_openrouteservice, pos_geo_itineraire, long_itineraire, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto = enrichissement_carte_interactive(dict_attributs_itineraire, df_POI_zoom_sur_centroid, dict_attributs_sejour)
      
     return fmap, carte_openrouteservice, pos_geo_itineraire, long_itineraire, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto
+
+
 
 
 
