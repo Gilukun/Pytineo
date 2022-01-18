@@ -94,97 +94,76 @@ if sidebar=="Visualisations":
     #(2,1) => la première colonne sera 2 fois plus grande que la seconde colonne
     col1, col2 = st.columns((2,1))
     with col1 : 
-        plotlypie_theme = px.pie(theme_count, 
+        PACA_pie = px.pie(theme_count, 
                                  values=theme_count, 
                                  names=theme_count.index, 
                                  title="Répartition des thèmes de POI",
                                  width=1000, 
                                  height=500)
         
-        plotlypie_theme.update_traces(textposition='outside', textinfo='percent')
-        st.plotly_chart(plotlypie_theme)
-        st.caption('Répartition des POIs du DataSet')
+        PACA_pie.update_traces(textposition='outside', textinfo='percent')
+        PACA_pie.update_layout(xaxis_title="Répartition des thèmes des POIs", 
+                               font=dict(family="Verdana", 
+                                    size=13,
+                                    color="Black"),
+                               title={
+                                 'y':0.95,
+                                 'x':0.43,
+                                 'xanchor': 'center',
+                                 'yanchor': 'top'},
+                               title_font_family="Verdana",
+                               title_font_color="Black",
+                               legend_title_font_color="#3C738D")
+        
+        st.plotly_chart(PACA_pie)
+        
     
     with col2:
         #Création d'une zone de texte pour commenter le graphique
         st.write("Note expliquant le graphique")
     
-#---------------------------
-#Histogramme avec Matplotlib
-#---------------------------
-#Création du menu de sélection des thématique
-    #Df ne contenant que les valeurs unique des thématiques
-    theme = df["Thématique_POI"].drop_duplicates()
-    
-    #Création du menu avec par défaut l'affichage de tous les thèmes
-    themeselect= st.multiselect("Thématique POI",theme, default = theme)
-    
-    #Création du dataframe ne contenant que les thématiques sélectionnées
-    themenotselect=[]
-    for i in theme:
-        if i not in themeselect:
-            themenotselect.append(i)
-    df_com_bar = df[~df['Thématique_POI'].isin(themenotselect)]
-    
-    #séparation de la page en 2 colonnes
-    col1, col2 = st.columns((2,1))
-    
-    with col1 :
-        fig= plt.figure(figsize=(90,40))
-        
-        bar = sns.countplot(x=df_com_bar ['Nom_département'],
-                           hue=df_com_bar ['Thématique_POI'], 
-                           palette='Set2',
-                           order=pd.value_counts(df['Nom_département']).iloc[:10].index)
-        
-        plt.title("Répartitions de POI par Départements ")
-        plt.legend(bbox_to_anchor = (1, 1), 
-                  loc = 'upper right', 
-                  prop = {'size': 40})
-        plt.xticks(rotation=45, fontsize=40)
-        plt.yticks(fontsize=40)
-        st.pyplot(fig)
-    
-    with col2:
-        st.write("Note expliquant le graphique")
-        
 
 #---------------------------
 #Histogramme avec Plotly
 #---------------------------
-    st.header("test de Plotly pour l'affichage dynamique des infos")
+    col1, col2 = st.columns((2,1))
+    with col1 : 
+        
+        PACA_Hist= px.histogram(df, x=['Nom_département'], 
+                              color= df ['Thématique_POI'],
+                              width=1000,
+                              height=800,
+                              title="Répartition des POIs par départements")
+        
+        #triage des données du plus grand au plus petit (nb total de POI)
+        PACA_Hist.update_xaxes(categoryorder='total descending')
+        
+        #Modification des labels / couleurs/ Police etc...
+        PACA_Hist.update_layout(xaxis_title="Nom du département",
+                          yaxis_title="Thématiques des points d intérêt",
+                          font=dict(family="Verdana", 
+                                    size=13,
+                                    color="Black"),
+                          title={
+                                 'y':0.95,
+                                 'x':0.43,
+                                 'xanchor': 'center',
+                                 'yanchor': 'top'},
+                          title_font_family="Verdana",
+                          title_font_color="Black",
+                          legend_title_font_color="#3C738D")
+        
+        #Affichage du graph
+        st.plotly_chart(PACA_Hist)
     
-    figtest= px.histogram(df_com_bar, x=['Nom_département'], 
-                          color= df_com_bar ['Thématique_POI'],
-                          width=1500,
-                          height=900,
-                          title="Répartition des POIs par départements")
+    with col2:
+        #Création d'une zone de texte pour commenter le graphique
+        st.write("Note expliquant le graphique")
     
-    #triage des données du plus grand au plus petit (nb total de POI)
-    figtest.update_xaxes(categoryorder='total descending')
-    
-    #Modification des labels / couleurs/ Police etc...
-    figtest.update_layout(xaxis_title="Nom du département",
-                      yaxis_title="Thématiques des points d intérêt",
-                      font=dict(family="Courier New, monospace", 
-                                size=13,
-                                color="#2B3232"),
-                      title={
-                             'y':0.95,
-                             'x':0.43,
-                             'xanchor': 'center',
-                             'yanchor': 'top'},
-                      title_font_family="Times New Roman",
-                      title_font_color="#263A91",
-                      legend_title_font_color="#3C738D")
-    
-    #Affichage du graph
-    st.plotly_chart(figtest)
  
 #---------------------------
 #DensityMap avec Plotly
 #---------------------------   
-    st.write("Test d une Heatmap")
     #Création d'un dataframe contenant le total du nombre de chaque thématiques par commune
     dfheat = pd.crosstab (df['Nom_commune'], df['Thématique_POI']).reset_index()
     dfheat['sum']=dfheat.sum(axis=1)
@@ -192,19 +171,29 @@ if sidebar=="Visualisations":
     #Ajout du total dans le df principal
     dico= dict(zip(dfheat['Nom_commune'], dfheat['sum']))
     df['Sum']= df['Nom_commune'].map(dico)
+    col1, col2 = st.columns((2,1))
+    with col1 : 
+        #Création du DensityMap
+        PACA_density= px.density_mapbox(df, 
+                                lat='Latitude', lon='Longitude', 
+                                z='Sum', 
+                                radius=10,
+                                center=dict(lat=43.55, lon=5.41),
+                                zoom=7,
+                                mapbox_style="open-street-map",
+                                color_continuous_scale = "Sunset",
+                                width=950,
+                                height=950)
+        PACA_density.update_layout(title= "Densité des Points d'intérêt en France", 
+                          title_x= 0.5,
+                          font=dict(size=18))
+        
+        st.plotly_chart(PACA_density)
+        
+    with col2:
+        #Création d'une zone de texte pour commenter le graphique
+        st.write("Nous pouvons remarquer une concentration de POI’s dans ces régions : Côtes Bretonnes & Loire Atlantique, Région Parisienne Est, Côtes Atlantiques (Landes, Pays Basques…), Région Méditerranéenne")
 
-    #Création du DensityMap
-    figheat = px.density_mapbox(df, 
-                            lat='Latitude', lon='Longitude', 
-                            z='Sum', 
-                            radius=10,
-                            center=dict(lat=48.6, lon=2.19),
-                            zoom=5,
-                            mapbox_style="open-street-map",
-                            color_continuous_scale = "Sunset",
-                            width=1300,
-                            height=1000)
-    st.plotly_chart(figheat)
 
 #Page 3   
 if sidebar=="Démos":
@@ -213,8 +202,8 @@ if sidebar=="Démos":
     source_code = html_file.read()
     components.html(source_code, height=600, width=1000)
     #le df.csv est créé et sauvegardé dans le répertoire du projet Streamlit, on peu simplement le rappeler sans relancer le code initial
-    df = pd.read_csv("df.datatourisme.POI_OK_20210921.PACA.csv")
-    centroid= pd.read_csv("Data/CentroidFrance.csv")
+    df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
+    centroid= pd.read_csv("CentroidFrance.csv")
     
     #DROP DOWN MENU
     commune = df['Nom_commune'].drop_duplicates()
@@ -273,7 +262,7 @@ if sidebar=="Démos":
                     #Création de la carte
                     #centrage de la carte sur le centroide de la commune recherchée
                     for index, row in com.iterrows():
-                      maps= folium.Map(location=[row.loc['latitude'], row.loc['longitude']], tiles='cartodbpositron', zoom_start=12)
+                      maps= folium.Map(location=[row.loc['latitude'], row.loc['longitude']], tiles='openstreetmap', zoom_start=12)
                 
                   #création de la colonne couleur qui servira à changer les couleurs des iconnes
                       color_list= ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred',
@@ -316,8 +305,13 @@ if sidebar=="Démos":
 #Page 4            
 if sidebar=="Test cartes multiples":
     df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
-    nom_commune_reference = 'Arles'
-    duree_du_sejour  = 5                                                                               
+    commune = df_POI['Nom_commune'].drop_duplicates()
+    choix_commune = st.selectbox('Selectionnez votre commune:', commune)
+    
+    nom_commune_reference = choix_commune
+    
+    jourselect = st.radio("Nombre de jour de visites", (1,2,3,4,5,6,7))
+    duree_du_sejour  = jourselect                                                                               
     
     dict_themes = {"Commerce":True,                                                                       ## thématiques de POI souhaitées par l'utilisateur
                    "Culture et social":True,
@@ -467,12 +461,51 @@ if sidebar=="Test cartes multiples":
             fmap, carte_openrouteservice, pos_geo_itineraire, long_itineraire, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto = Pytineo_module_cartes.StartPoint(globals()[f"df_POI_zoom_sur_centroid_{cle}"], dict_attributs_itineraire, dict_attributs_sejour) 
             no_FMAP = str(cle)+ '_' + str(i)
             filename = ("carte_centroid_itineraire_%s.html" % no_FMAP)
-            fmap.save('Streamlit/'+filename)
+            fmap.save(filename)
             no_centroid_deja_traite = analyse_resultats_par_itineraire(cle, i, itineraire, globals()[f"df_POI_zoom_sur_centroid_{cle}"], carte_openrouteservice, pos_geo_itineraire, long_itineraire, no_centroid_deja_traite)
             analyse_resultats_par_carte(cle, i, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto, dict_attributs_sejour)
-            
-
-            
-
+    
+    map1, map2 = st.columns((1,1))
+    with map1 :
+        st.write("Jour 1")
+        html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+    with map2 :
+        st.write("Jour 2")
+        html_file = open("carte_centroid_itineraire_1_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+        
+    map4, map3 = st.columns((1,1))
+    with map3:
+        st.write("Jour 3")
+        html_file = open("carte_centroid_itineraire_2_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+    with map4:
+        st.write("Jour 4")
+        html_file = open("carte_centroid_itineraire_3_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+        
+    map5, map6 = st.columns((1,1))
+    with map5:
+        st.write("Jour 5")
+        html_file = open("carte_centroid_itineraire_4_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+    with map6:
+        st.write("Jour 6")
+        html_file = open("carte_centroid_itineraire_5_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
+        
+    map7, map8= st.columns((1,1))
+    with map7:
+        st.write("Jour 7")
+        html_file = open("carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
+        source_code = html_file.read()
+        components.html(source_code, height=400, width=500)
             
 

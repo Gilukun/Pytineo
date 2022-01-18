@@ -216,7 +216,7 @@ def recherche_generique(restauration_souhaitee, restauration_rapide_souhaitee, g
         liste_mot_cle_POI_resto.append(mot_cle_resto_gene[0])
         liste_description_POI_resto.append(desc_courte_resto_gene[0])        
                                                                      
-        sous_themes_POI = list(df_themes_POI['Sous_thème_POI'][df_themes_POI['Thematique_POI'] == theme_resto_gene[0]])  
+        sous_themes_POI = list(df_themes_POI['Sous_thème_POI'][df_themes_POI['Thématique_POI'] == theme_resto_gene[0]])  
         icone_POI_resto = []
         for sous_theme in sous_themes_POI:                                       
             if sous_theme == mot_cle_resto_gene[0]:
@@ -226,8 +226,8 @@ def recherche_generique(restauration_souhaitee, restauration_rapide_souhaitee, g
                 icone_POI_resto = list(df_themes_POI['Icone_représentation_visuelle'][df_themes_POI['Sous_thème_POI'] == theme_resto_gene[0]])                                                                       
         if len(icone_POI_resto) != 0:
             liste_icone_POI_resto.append(icone_POI_resto[0])
-        else:  
-            liste_icone_POI_resto.append('Pas d\'icone POI resto disponible')
+        #else:  
+            #liste_icone_POI_resto.append('Pas d\'icone POI resto disponible')
                                                                                                                              
     return liste_nom_POI_resto, liste_liste_lat_lon_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto, liste_icone_POI_resto, liste_description_POI_resto, liste_distance_POI_resto, liste_adresse_POI_resto 
                                                                      
@@ -276,7 +276,7 @@ def construction_itineraire_carte(no_centroid, longueur_itineraire, liste_nom_PO
         carte_openrouteservice = False
             
  # Création d'une carte centrée sur les coordonnées géographiques du centroïd de l'itinéraire
-    fmap = folium.Map(location=[lat_POI_central_iti, lon_POI_central_iti], tiles='OpenStreetMap', zoom_start=valeur_de_zoom) 
+    fmap = folium.Map(location=[lat_POI_central_iti, lon_POI_central_iti], tiles='cartodbpositron', zoom_start=valeur_de_zoom) 
 
     #fmap.add_child(folium.LatLngPopup())
 
