@@ -1,14 +1,14 @@
 Thématique_POI,Sous_thème_POI,Icone_représentation_visuelle
-Commerce,Commerce,logo_commerce_service.jpg
-Culture et social,Culture et social,logo_culture_social.jpg
-Gastronomie,logo_terroir.jpg
-Itinéraire touristique,Itinéraire touristique,logo_itineraire.jpg
-Itinéraire touristique,Itinéraire cyclable,logo_velo.jpg
-Itinéraire touristique,Itinéraire pédestre,logo_marche_à_pied.jpg
-Itinéraire touristique,Itinéraire routier,logo_voiture.jpg
-Loisir,Loisir,logo_loisir.jpg
-Patrimoine,Patrimoine,logo_patrimoine.jpg
-Restauration/Bar a theme,Restauration,logo_restauration.jpg
-Restauration/Bar a theme,Restauration rapide,logo_restauration_rapide.jpg
-Site naturel,Site naturel,logo_site_naturel.jpg
-Sport,Sport,logo_sports.jpg
+Commerce,Commerce,https://github.com/Gilukun/Pytineo/blob/main/logo_commerce_service.jpg
+Culture et social,Culture et social,https://github.com/Gilukun/Pytineo/blob/main/logo_culture_social.jpg
+Gastronomie,https://github.com/Gilukun/Pytineo/blob/main/logo_terroir.jpg
+Itinéraire touristique,Itinéraire touristique,https://github.com/Gilukun/Pytineo/blob/main/logo_itineraire.jpg
+Itinéraire touristique,Itinéraire cyclable,https://github.com/Gilukun/Pytineo/blob/main/logo_velo.jpg
+Itinéraire touristique,Itinéraire pédestre,lhttps://github.com/Gilukun/Pytineo/blob/main/ogo_marche_à_pied.jpg
+Itinéraire touristique,Itinéraire routier,https://github.com/Gilukun/Pytineo/blob/main/logo_voiture.jpg
+Loisir,Loisir,https://github.com/Gilukun/Pytineo/blob/main/logo_loisir.jpg
+Patrimoine,Patrimoine,https://github.com/Gilukun/Pytineo/blob/main/logo_patrimoine.jpg
+Restauration/Bar a theme,Restauration,https://github.com/Gilukun/Pytineo/blob/main/logo_restauration.jpg
+Restauration/Bar a theme,Restauration rapide,https://github.com/Gilukun/Pytineo/blob/main/logo_restauration_rapide.jpg
+Site naturel,Site naturel,https://github.com/Gilukun/Pytineo/blob/main/logo_site_naturel.jpg
+Sport,Sport,https://github.com/Gilukun/Pytineo/blob/main/logo_sports.jpg
