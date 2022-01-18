@@ -29,7 +29,7 @@ import threading
 import time
 
 import sys
-sys.path.append('/GitHub/Pytineo')
+sys.path.append('https://github.com/Gilukun/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
@@ -72,7 +72,7 @@ if sidebar=="Visualisations":
     with col2:
         st.write("")
     with col3:
-        st.image("Pytineo_logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
+        st.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
             
     
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
