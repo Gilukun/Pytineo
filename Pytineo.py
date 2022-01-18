@@ -468,7 +468,7 @@ if sidebar=="Test cartes multiples":
     map1, map2 = st.columns((1,1))
     with map1 :
         st.write("Jour 1")
-        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
+        html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
     with map2 :
