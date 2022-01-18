@@ -50,7 +50,7 @@ if sidebar=="Acceuil":
     with intro:
         col1, col2, col3 = st.columns([1,2,1])
         with col2:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
+            st.image('https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png', caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
         
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
