@@ -393,7 +393,7 @@ def affichage_POI_restaurant_carte(fmap, liste_nom_POI_resto, liste_liste_lat_lo
 def enrichissement_carte_interactive(dict_attributs_itineraire, df_POI_zoom_sur_centroid, dict_attributs_sejour):
     
    #  référentiel des thèmes et sous_thèmes de POI
-    df_themes_POI = pd.read_csv('https://github.com/Gilukun/Pytineo/blob/main/re%CC%81fe%CC%81rentiel_the%CC%80mes_sous_the%CC%80mes.csv')
+    df_themes_POI = pd.read_csv('https://github.com/Gilukun/Pytineo/blob/main/referentiel_themes_sous_themes.csv')
 
     no_centroid = dict_attributs_itineraire['no_centroid']
     lat_centroid = dict_attributs_itineraire['lat_centroid']
