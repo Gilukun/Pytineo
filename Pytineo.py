@@ -468,43 +468,43 @@ if sidebar=="Test cartes multiples":
     map1, map2 = st.columns((1,1))
     with map1 :
         st.write("Jour 1")
-        html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
     with map2 :
         st.write("Jour 2")
-        html_file = open("carte_centroid_itineraire_1_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_1_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
         
     map4, map3 = st.columns((1,1))
     with map3:
         st.write("Jour 3")
-        html_file = open("carte_centroid_itineraire_2_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_2_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
     with map4:
         st.write("Jour 4")
-        html_file = open("carte_centroid_itineraire_3_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_3_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
         
     map5, map6 = st.columns((1,1))
     with map5:
         st.write("Jour 5")
-        html_file = open("carte_centroid_itineraire_4_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_4_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
     with map6:
         st.write("Jour 6")
-        html_file = open("carte_centroid_itineraire_5_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_5_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
         
     map7, map8= st.columns((1,1))
     with map7:
         st.write("Jour 7")
-        html_file = open("carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
+        html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
             
