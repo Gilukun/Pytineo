@@ -507,5 +507,5 @@ if sidebar=="Test cartes multiples":
         html_file = open("https://github.com/Gilukun/Pytineo/blob/main/carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
         components.html(source_code, height=400, width=500)
-            
+           
 
