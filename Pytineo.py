@@ -17,6 +17,7 @@ import seaborn as sns
 
 import folium
 from streamlit_folium import folium_static
+from PIL import Image
 
 #import openrouteservice 
 #from openrouteservice import client
