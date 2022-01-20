@@ -218,19 +218,19 @@ if sidebar=="Application Pytineo":
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_commerce_service.png", caption="Commerce",width=100)
+            st.image("Logo_POIs/logo_commerce_service.png", caption="Commerce",width=100)
         with img2:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_culture_social.png", caption="Culture/Social",width=100)
+            st.image("Logo_POIs/logo_culture_social.png", caption="Culture/Social",width=100)
         with img3:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_evt_sportif.png", caption="Evènement Sportif",width=100)
+            st.image("Logo_POIs/logo_evt_sportif.png", caption="Evènement Sportif",width=100)
         with img4:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_itineraire.png", caption="Itinéraires",width=120)
+            st.image("Logo_POIs/logo_itineraire.png", caption="Itinéraires",width=120)
         with img5:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_loisir.png", caption="Loisir",width=100)
+            st.image("Logo_POIs/logo_loisir.png", caption="Loisir",width=100)
         with img6:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_marche_à_pied.png", caption="Marche à pied",width=100)
+            st.image("Logo_POIs/logo_marche_à_pied.png", caption="Marche à pied",width=100)
         with img7:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_patrimoine.png", caption="Patrimoine",width=100)
+            st.image("Logo_POIs/logo_patrimoine.png", caption="Patrimoine",width=100)
           
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
