@@ -9,6 +9,7 @@ Created on Thu Nov 11 17:27:47 2021
 #Début du code
 import streamlit as st
 import pandas as pd
+import glob
 
 
 import plotly.express as px
@@ -214,9 +215,11 @@ if sidebar=="Application Pytineo":
     duree_du_sejour  = selection_nb_jour  
     
     #affichage de la légende des cartes
-    image = Image.open('logo_commerce_service.png','logo_culture_social.pn','logo_evt_sportif.png','logo_itineraire.png',
-                      'logo_loisir.png','logo_marche_à_pied.png','logo_patrimoine.png','logo_patrimoine.png','logo_restauration.png',
-                      'logo_site_naturel.png','logo_site_naturel.png','logo_sports.png','logo_terroir.png')
+
+    image_list = []
+    for filename in glob.glob('https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/*.png'): #assuming gif
+        im=Image.open(filename)
+    
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
