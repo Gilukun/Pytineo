@@ -215,11 +215,7 @@ if sidebar=="Application Pytineo":
     duree_du_sejour  = selection_nb_jour  
     
     #affichage de la légende des cartes
-    list_img=[]
-    for filename in glob.glob('https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/*.png'):
-        img = Image.open(filename)
-        list_img.append(img)
-    
+ 
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
