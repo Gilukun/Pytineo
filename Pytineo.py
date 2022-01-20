@@ -217,36 +217,36 @@ if sidebar=="Application Pytineo":
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
-            st.image("logo_commerce_service.png", caption="Commerce",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_commerce_service.png", caption="Commerce",width=100)
         with img2:
-            st.image("logo_culture_social.png", caption="Culture/Social",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_culture_social.png", caption="Culture/Social",width=100)
         with img3:
-            st.image("logo_evt_sportif.png", caption="Evènement Sportif",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_evt_sportif.png", caption="Evènement Sportif",width=100)
         with img4:
-            st.image("logo_itineraire.png", caption="Itinéraires",width=120)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_itineraire.png", caption="Itinéraires",width=120)
         with img5:
-            st.image("logo_loisir.png", caption="Loisir",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_loisir.png", caption="Loisir",width=100)
         with img6:
-            st.image("logo_marche_à_pied.png", caption="Marche à pied",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_marche_à_pied.png", caption="Marche à pied",width=100)
         with img7:
-            st.image("logo_patrimoine.png", caption="Patrimoine",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_patrimoine.png", caption="Patrimoine",width=100)
           
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
         with img8:
-            st.image("logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
         with img9:
-            st.image("logo_restauration.png", caption="Gastronomie",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_restauration.png", caption="Gastronomie",width=100)
         with img10:
-            st.image("logo_site_naturel.png", caption="Site Naturel",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_site_naturel.png", caption="Site Naturel",width=100)
         with img11:
-            st.image("logo_sports.png", caption="Sport",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_sports.png", caption="Sport",width=100)
         with img12:
-            st.image("logo_terroir.png", caption="Terroir",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_terroir.png", caption="Terroir",width=100)
         with img13:
-            st.image("logo_velo.png", caption="Velo",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_velo.png", caption="Velo",width=100)
         with img14:
-            st.image("logo_voiture.png", caption="Voiture",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_voiture.png", caption="Voiture",width=100)
         
                                                                  
     #Code de l'application Pytineo
