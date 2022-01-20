@@ -9,7 +9,7 @@ Created on Thu Nov 11 17:27:47 2021
 #Début du code
 import streamlit as st
 import pandas as pd
-import glob
+#import glob
 
 
 import plotly.express as px
@@ -215,7 +215,6 @@ if sidebar=="Application Pytineo":
     duree_du_sejour  = selection_nb_jour  
     
     #affichage de la légende des cartes
- 
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
