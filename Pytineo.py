@@ -218,7 +218,7 @@ if sidebar=="Application Pytineo":
 
     image_list = []
     for filename in glob.glob('https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/*.png'): #assuming gif
-        im=Image.open(filename)
+        Image.open(filename)
     
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
