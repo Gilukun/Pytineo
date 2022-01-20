@@ -214,6 +214,9 @@ if sidebar=="Application Pytineo":
     duree_du_sejour  = selection_nb_jour  
     
     #affichage de la légende des cartes
+    image = Image.open('logo_commerce_service.png','logo_culture_social.pn','logo_evt_sportif.png','logo_itineraire.png',
+                      'logo_loisir.png','logo_marche_à_pied.png','logo_patrimoine.png','logo_patrimoine.png','logo_restauration.png',
+                      'logo_site_naturel.png','logo_site_naturel.png','logo_sports.png','logo_terroir.png')
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
@@ -234,7 +237,7 @@ if sidebar=="Application Pytineo":
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
         with img8:
-            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_patrimoine.png", caption="Retauration Rapide",width=100)
         with img9:
             st.image("https://github.com/Gilukun/Pytineo/blob/main/Logo_POIs/logo_restauration.png", caption="Gastronomie",width=100)
         with img10:
