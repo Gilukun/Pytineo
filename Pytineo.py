@@ -12,17 +12,16 @@ import pandas as pd
 
 
 import plotly.express as px
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 
-import folium
-from streamlit_folium import folium_static
-from PIL import Image
+#import folium
+#from streamlit_folium import folium_static
 
 #import openrouteservice 
 #from openrouteservice import client
 
-from sklearn.cluster import KMeans
+#from sklearn.cluster import KMeans
 
 import streamlit.components.v1 as components
 
@@ -30,7 +29,7 @@ import threading
 import time
 
 import sys
-sys.path.append('https://github.com/Gilukun/Pytineo')
+sys.path.append('/Documents/GitHub/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
@@ -43,7 +42,7 @@ st.set_page_config(layout="wide")
 
 
 #creation de la navigation du site (menu de gauche)
-sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Visualisations", "Démos", "Test cartes multiples"]) 
+sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "Application Pytineo"]) 
 
 #Premère page
 if sidebar=="Acceuil":
@@ -51,8 +50,7 @@ if sidebar=="Acceuil":
     with intro:
         col1, col2, col3 = st.columns([1,2,1])
         with col2:
-            home = Image.open('Pytineo_Logo_2.png')
-            st.image(home, caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="PNG")
+            st.image("Pytineo_logo_2.png", caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
         
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
@@ -67,15 +65,14 @@ if sidebar=="Acceuil":
     
 
 #Seconde page 
-if sidebar=="Visualisations":
+if sidebar=="Analyse de données":
     col1, col2, col3 = st.columns([3,1,1])
     with col1:
         st.write("")
     with col2:
         st.write("")
     with col3:
-        thumbnail = Image.open('Pytineo_Logo_2.png')
-        st.image(thumbnail, caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
+        st.image("Pytineo_logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
             
     
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
@@ -198,124 +195,58 @@ if sidebar=="Visualisations":
         st.write("Nous pouvons remarquer une concentration de POI’s dans ces régions : Côtes Bretonnes & Loire Atlantique, Région Parisienne Est, Côtes Atlantiques (Landes, Pays Basques…), Région Méditerranéenne")
 
 
-#Page 3   
-if sidebar=="Démos":
-    st.title('Affichage de la carte avec HTML_file function')
-    html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
-    source_code = html_file.read()
-    components.html(source_code, height=600, width=1000)
-    #le df.csv est créé et sauvegardé dans le répertoire du projet Streamlit, on peu simplement le rappeler sans relancer le code initial
-    df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
-    centroid= pd.read_csv("CentroidFrance.csv")
+#Page 3            
+if sidebar=="Application Pytineo":
+    #Création des menus de sélection des variables
     
-    #DROP DOWN MENU
-    commune = df['Nom_commune'].drop_duplicates()
-    choix_commune = st.selectbox('Selectionnez votre commune:', commune)
-    
-    theme = df["Thématique_POI"].drop_duplicates()
-    #choix_theme = st.sidebar.selectbox('Sélectionnez votr type d itinéraire', theme)
-    
-    col1, col2= st.columns((1,2))
-
-    #AFFICHAGE DE LA CARTE
-    with col1 : 
-        #création du slide de dsélection des jours
-        jourselect = st.radio("Nombre de jour de visites", (1,2,3,4,5,6,7))
-        
-        #création du menu pour sélectionner les thèmatiqes
-        themeselect= st.multiselect("Sélection des thématiques",theme, default = theme)
-        themenotselect=[]
-        for i in theme:
-            if i not in themeselect:
-                themenotselect.append(i)
-        
-        
-        #création de la carte
-        with col2: 
-            cartes=st.container()
-            with cartes:
-                st.header('Carte des Points d intêrets selon la commune et le thème choisi')
-                def intineraire (choix_commune):
-                    #Obtention du centroide de la commune choisie
-                    centroid_list = centroid['nom_com'].drop_duplicates(keep='first')
-                    for value in centroid_list:
-                      if choix_commune == value:
-                          com = centroid[centroid['nom_com'] == value]
-                          
-                    #Selection de la commune
-                    commune_list = df['Nom_commune'].drop_duplicates(keep='first')
-                    for value in commune_list:
-                        if choix_commune == value:
-                            df_com = df [df['Nom_commune'] == value]
-
-                    #Selection de la thématique selon la commune
-                    df_com = df_com[~df_com['Thématique_POI'].isin(themenotselect)]
-                 
-                    #création des clusters en utilisant le KMeans
-                    #On a une randomisation des résultats naturellement avec le KMeans
-                    X= df_com[['Latitude', 'Longitude']]
-                    k = round((df_com[['Latitude', 'Longitude']].shape[0])/10)
-                    kmeans = KMeans(k)
-                    kmeans.fit(X)
-                    clusters = kmeans.predict(X)
-                    df_com['Clusters'] = clusters
-                    random = list(df_com['Clusters'].sample(n=jourselect, random_state=1).values) #On choisi un n= nombre de jour pour avoir un cluster par jour
-                    df_com = df_com.loc[df_com['Clusters'].isin(random)]
-                
-                    #Création de la carte
-                    #centrage de la carte sur le centroide de la commune recherchée
-                    for index, row in com.iterrows():
-                      maps= folium.Map(location=[row.loc['latitude'], row.loc['longitude']], tiles='openstreetmap', zoom_start=12)
-                
-                  #création de la colonne couleur qui servira à changer les couleurs des iconnes
-                      color_list= ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred',
-                          'beige', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple','white', 
-                          'pink', 'lightblue', 'lightgreen', 'gray', 'black', 'lightgray']
-                      clusters_id = list(df_com["Clusters"].unique())
-                      color_dic = dict(zip (clusters_id, color_list))
-                      df_com['Couleur']= df_com['Clusters'].map(color_dic)
-                
-                  #création de la colonne qui servira à différencier les icones
-                      icon_dic= {'Itinéraire touristique':'hiking', 
-                                 'Loisir':'film', 
-                                 'Sport':'futbol',
-                                 'Site naturel':'tree',
-                                 'Service pratique':'question', 
-                                 'Évènement social':'elementor', 
-                                 'Évènement culturel':'palette',
-                                 'Restauration':'utensils', 
-                                 'Patrimoine':'monument', 
-                                 'Culture':'archway', 
-                                 'Commerce':'cash-register', 
-                                 'Gastronomie':'star',
-                                 'Mobilité':'wheelchair', 
-                                 'Information':'info'}
-                      df_com['icons']= df_com['Thématique_POI'].map(icon_dic)
-                      
-                    for i in df_com.itertuples(): 
-                      folium.Marker(location=[i.Latitude, i.Longitude], 
-                                     tooltip= i.Nom_du_POI,
-                                     icon=folium.Icon(icon=i.icons, prefix="fa", color = i.Couleur)).add_to(maps)
-                
-                
-                    return folium_static(maps)
-                                
-                st.write(intineraire (choix_commune))
-     
-    
-  
-
-#Page 4            
-if sidebar=="Test cartes multiples":
     df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
     commune = df_POI['Nom_commune'].drop_duplicates()
-    choix_commune = st.selectbox('Selectionnez votre commune:', commune)
     
+    #Menu de sélection de la commune
+    choix_commune = st.selectbox('Selectionnez votre commune:', commune)
     nom_commune_reference = choix_commune
     
-    jourselect = st.radio("Nombre de jour de visites", (1,2,3,4,5,6,7))
-    duree_du_sejour  = jourselect                                                                               
+    #menu de sélection des jours
+    selection_nb_jour = st.number_input("Nombre de jour de visite", min_value=1, max_value=7, step=1)
+    duree_du_sejour  = selection_nb_jour  
     
+    #affichage de la légende des cartes
+    with st.expander("Cliquez pour afficher la légende"):
+        img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
+        with img1:
+            st.image("logo_commerce_service.png", caption="Commerce",width=100)
+        with img2:
+            st.image("logo_culture_social.png", caption="Culture/Social",width=100)
+        with img3:
+            st.image("logo_evt_sportif.png", caption="Evènement Sportif",width=100)
+        with img4:
+            st.image("logo_itineraire.png", caption="Itinéraires",width=120)
+        with img5:
+            st.image("logo_loisir.png", caption="Loisir",width=100)
+        with img6:
+            st.image("logo_marche_à_pied.png", caption="Marche à pied",width=100)
+        with img7:
+            st.image("logo_patrimoine.png", caption="Patrimoine",width=100)
+          
+       
+        img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
+        with img8:
+            st.image("logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
+        with img9:
+            st.image("logo_restauration.png", caption="Gastronomie",width=100)
+        with img10:
+            st.image("logo_site_naturel.png", caption="Site Naturel",width=100)
+        with img11:
+            st.image("logo_sports.png", caption="Sport",width=100)
+        with img12:
+            st.image("logo_terroir.png", caption="Terroir",width=100)
+        with img13:
+            st.image("logo_velo.png", caption="Velo",width=100)
+        with img14:
+            st.image("logo_voiture.png", caption="Voiture",width=100)
+        
+                                                                 
+    #Code de l'application Pytineo
     dict_themes = {"Commerce":True,                                                                       ## thématiques de POI souhaitées par l'utilisateur
                    "Culture et social":True,
                    "Gastronomie":True,
@@ -473,42 +404,43 @@ if sidebar=="Test cartes multiples":
         st.write("Jour 1")
         html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
     with map2 :
         st.write("Jour 2")
         html_file = open("carte_centroid_itineraire_1_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
+    
         
-    map4, map3 = st.columns((1,1))
+    map3, map4 = st.columns((1,1))
     with map3:
         st.write("Jour 3")
         html_file = open("carte_centroid_itineraire_2_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
     with map4:
         st.write("Jour 4")
         html_file = open("carte_centroid_itineraire_3_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
         
     map5, map6 = st.columns((1,1))
     with map5:
         st.write("Jour 5")
         html_file = open("carte_centroid_itineraire_4_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
     with map6:
         st.write("Jour 6")
         html_file = open("carte_centroid_itineraire_5_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
+        components.html(source_code, height=400, width=600)
         
     map7, map8= st.columns((1,1))
     with map7:
         st.write("Jour 7")
         html_file = open("carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
         source_code = html_file.read()
-        components.html(source_code, height=400, width=500)
-           
+        components.html(source_code, height=400, width=600)
+            
 
