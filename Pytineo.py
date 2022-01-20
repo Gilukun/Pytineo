@@ -228,7 +228,7 @@ if sidebar=="Application Pytineo":
         with img5:
             st.image("Logo_POIs/logo_loisir.png", caption="Loisir",width=100)
         with img6:
-            st.image("Logo_POIs/logo_marche_à_pied.png", caption="Marche à pied",width=100)
+            st.image("Logo_POIs/logo_marche_a_pied.png", caption="Marche à pied",width=100)
         with img7:
             st.image("Logo_POIs/logo_patrimoine.png", caption="Patrimoine",width=100)
           
