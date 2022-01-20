@@ -50,7 +50,7 @@ if sidebar=="Acceuil":
     with intro:
         col1, col2, col3 = st.columns([1,2,1])
         with col2:
-            st.image("Pytineo_logo_2.png", caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
+            st.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
         
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
@@ -72,7 +72,7 @@ if sidebar=="Analyse de données":
     with col2:
         st.write("")
     with col3:
-        st.image("Pytineo_logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
+        st.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
             
     
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
