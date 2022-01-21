@@ -39,8 +39,8 @@ from PIL import Image
 
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
-image = Image.open('https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png')
-st.sidebar.image("Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", width=100)
+Logo = Image.open('https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png')
+st.sidebar.image(Logo, width=100)
 #creation de la navigation du site (menu de gauche)
 sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "Application Pytineo"]) 
 
@@ -50,7 +50,7 @@ if sidebar=="Acceuil":
     with intro:
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
-            st.image("Pytineo_logo_2.png", width=500,output_format="auto")
+            st.image(Logo, width=500,output_format="auto")
             
         st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
