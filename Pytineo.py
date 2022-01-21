@@ -9,7 +9,6 @@ Created on Thu Nov 11 17:27:47 2021
 #Début du code
 import streamlit as st
 import pandas as pd
-#import glob
 
 
 import plotly.express as px
@@ -25,8 +24,6 @@ import plotly.express as px
 #from sklearn.cluster import KMeans
 
 import streamlit.components.v1 as components
-from PIL import Image
-
 
 import threading
 import time
@@ -43,7 +40,7 @@ import Pytineo_module_cartes
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
 
-
+st.sidebar.image("Pytineo_logo_2.png", width=100)
 #creation de la navigation du site (menu de gauche)
 sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "Application Pytineo"]) 
 
@@ -51,10 +48,13 @@ sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "App
 if sidebar=="Acceuil":
     intro = st.container()
     with intro:
-        col1, col2, col3 = st.columns([1,2,1])
+        col1, col2, col3 = st.columns([1,1,1])
         with col2:
-            image = Image.open('Pytineo_Logo_2.png')
-            st.image("Pytineo_Logo_2.png", caption=None, width=700, use_column_width=700, clamp=False, channels="RGB", output_format="auto")
+            st.image("Pytineo_logo_2.png", width=500,output_format="auto")
+            
+        st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
+        
         
         col1, col2, col3 = st.columns([1,1,1])
         with col2:
@@ -70,17 +70,8 @@ if sidebar=="Acceuil":
 
 #Seconde page 
 if sidebar=="Analyse de données":
-    col1, col2, col3 = st.columns([3,1,1])
-    with col1:
-        st.write("")
-    with col2:
-        st.write("")
-    with col3:
-        st.image("Pytineo_Logo_2.png", caption=None, width=100, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
-            
-    
+    #ouverture du Dataset
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
-    
     
     analysis = st.container()
 
@@ -218,36 +209,36 @@ if sidebar=="Application Pytineo":
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
-            st.image("Logo_POIs/logo_commerce_service.png", caption="Commerce",width=100)
+            st.image("logo_commerce_service.png", caption="Commerce",width=100)
         with img2:
-            st.image("Logo_POIs/logo_culture_social.png", caption="Culture/Social",width=100)
+            st.image("logo_culture_social.png", caption="Culture/Social",width=100)
         with img3:
-            st.image("Logo_POIs/logo_evt_sportif.png", caption="Evènement Sportif",width=100)
+            st.image("logo_evt_sportif.png", caption="Evènement Sportif",width=100)
         with img4:
-            st.image("Logo_POIs/logo_itineraire.png", caption="Itinéraires",width=120)
+            st.image("logo_itineraire.png", caption="Itinéraires",width=120)
         with img5:
-            st.image("Logo_POIs/logo_loisir.png", caption="Loisir",width=100)
+            st.image("logo_loisir.png", caption="Loisir",width=100)
         with img6:
-            st.image("Logo_POIs/logo_marche_a_pied.png", caption="Marche à pied",width=100)
+            st.image("logo_marche_a_pied.png", caption="Marche à pied",width=100)
         with img7:
-            st.image("Logo_POIs/logo_patrimoine.png", caption="Patrimoine",width=100)
+            st.image("logo_patrimoine.png", caption="Patrimoine",width=100)
           
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
         with img8:
-            st.image("Logo_POIs/logo_patrimoine.png", caption="Retauration Rapide",width=100)
+            st.image("logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
         with img9:
-            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie",width=100)
+            st.image("logo_restauration.png", caption="Gastronomie",width=100)
         with img10:
-            st.image("Logo_POIs/logo_site_naturel.png", caption="Site Naturel",width=100)
+            st.image("logo_site_naturel.png", caption="Site Naturel",width=100)
         with img11:
-            st.image("Logo_POIs/logo_sports.png", caption="Sport",width=100)
+            st.image("logo_sports.png", caption="Sport",width=100)
         with img12:
-            st.image("Logo_POIs/logo_terroir.png", caption="Terroir",width=100)
+            st.image("logo_terroir.png", caption="Terroir",width=100)
         with img13:
-            st.image("Logo_POIs/logo_velo.png", caption="Velo",width=100)
+            st.image("logo_velo.png", caption="Velo",width=100)
         with img14:
-            st.image("Logo_POIs/logo_voiture.png", caption="Voiture",width=100)
+            st.image("logo_voiture.png", caption="Voiture",width=100)
         
                                                                  
     #Code de l'application Pytineo
