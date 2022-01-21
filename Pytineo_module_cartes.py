@@ -343,7 +343,7 @@ def construction_itineraire_carte(no_centroid, longueur_itineraire, liste_nom_PO
    # liste des coordonnées géographiques des points de l'itinéraire à relier (via openrouteservice)
     if carte_openrouteservice:
         folium.GeoJson(route,                                                                     ## construction de l'itinéraire à afficher
-                       name='Itinéraire', style_function = lambda feature:{'color': 'blue', 'weight': 3.5, 'opacity': 0.8}).add_to(fmap)
+                       name='Itinéraire', style_function = lambda feature:{'color': '#d44494', 'weight': 3.5, 'opacity': 0.8}).add_to(fmap)
     else:
         points = liste_tuple_lat_lon_POI
         
