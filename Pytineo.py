@@ -29,18 +29,18 @@ import threading
 import time
 
 import sys
-sys.path.append('/Documents/GitHub/Pytineo')
+sys.path.append('https://github.com/Gilukun/Pytineo/blob/main/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
-
+from PIL import Image
 
 
 
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
 
-st.sidebar.image("Pytineo_logo_2.png", width=100)
+st.sidebar.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", width=100)
 #creation de la navigation du site (menu de gauche)
 sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "Application Pytineo"]) 
 
