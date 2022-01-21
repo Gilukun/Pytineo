@@ -40,7 +40,7 @@ from PIL import Image
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
 
-st.sidebar.image("https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png", width=100)
+st.sidebar.image("main/Pytineo_Logo_2.png", width=100)
 #creation de la navigation du site (menu de gauche)
 sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "Application Pytineo"]) 
 
