@@ -391,52 +391,11 @@ if sidebar=="Application Pytineo":
             fmap, carte_openrouteservice, pos_geo_itineraire, long_itineraire, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto = Pytineo_module_cartes.StartPoint(globals()[f"df_POI_zoom_sur_centroid_{cle}"], dict_attributs_itineraire, dict_attributs_sejour) 
             no_FMAP = str(cle)+ '_' + str(i)
             filename = ("carte_centroid_itineraire_%s.html" % no_FMAP)
-            fmap.save(filename)
+            components.html(fmap._repr_html_(), height=600, width=1000)
+            #fmap.save(filename)
             no_centroid_deja_traite = analyse_resultats_par_itineraire(cle, i, itineraire, globals()[f"df_POI_zoom_sur_centroid_{cle}"], carte_openrouteservice, pos_geo_itineraire, long_itineraire, no_centroid_deja_traite)
             analyse_resultats_par_carte(cle, i, liste_nom_POI_resto, liste_theme_POI_resto, liste_mot_cle_POI_resto, dict_attributs_sejour)
     
-    map1, map2 = st.columns((1,1))
-    with map1 :
-        st.write("Jour 1")
-        html_file = open("carte_centroid_itineraire_0_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-    with map2 :
-        st.write("Jour 2")
-        html_file = open("carte_centroid_itineraire_1_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-    
-        
-    map3, map4 = st.columns((1,1))
-    with map3:
-        st.write("Jour 3")
-        html_file = open("carte_centroid_itineraire_2_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-    with map4:
-        st.write("Jour 4")
-        html_file = open("carte_centroid_itineraire_3_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-        
-    map5, map6 = st.columns((1,1))
-    with map5:
-        st.write("Jour 5")
-        html_file = open("carte_centroid_itineraire_4_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-    with map6:
-        st.write("Jour 6")
-        html_file = open("carte_centroid_itineraire_5_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
-        
-    map7, map8= st.columns((1,1))
-    with map7:
-        st.write("Jour 7")
-        html_file = open("carte_centroid_itineraire_6_1.html", 'r', encoding='utf-8')
-        source_code = html_file.read()
-        components.html(source_code, height=400, width=600)
+   
             
 
