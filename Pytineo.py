@@ -227,19 +227,19 @@ if sidebar=="Application Pytineo":
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
         with img8:
-            st.image("Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide",width=100)
+            st.image("Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide",width=75)
         with img9:
-            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie",width=100)
+            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie",width=75)
         with img10:
-            st.image("Logo_POIs/logo_site_naturel.png", caption="Site Naturel",width=100)
+            st.image("Logo_POIs/logo_site_naturel.png", caption="Site Naturel",width=75)
         with img11:
-            st.image("Logo_POIs/logo_sports.png", caption="Sport",width=100)
+            st.image("Logo_POIs/logo_sports.png", caption="Sport",width=75)
         with img12:
-            st.image("Logo_POIs/logo_terroir.png", caption="Terroir",width=100)
+            st.image("Logo_POIs/logo_terroir.png", caption="Terroir",width=75)
         with img13:
-            st.image("Logo_POIs/logo_velo.png", caption="Velo",width=100)
+            st.image("Logo_POIs/logo_velo.png", caption="Velo",width=75)
         with img14:
-            st.image("Logo_POIs/logo_voiture.png", caption="Voiture",width=100)
+            st.image("Logo_POIs/logo_voiture.png", caption="Voiture",width=75)
         
                                                                  
     #Code de l'application Pytineo
