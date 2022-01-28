@@ -299,30 +299,30 @@ if sidebar=="Application Pytineo":
     ##------------
     def analyse_resultats_par_itineraire(no_centroid, no_itineraire, POI_itineraire, df_POI_zoom_sur_centroid, carte_openrouteservice, pos_geo_itineraire, long_itineraire, no_centroid_deja_traite):
     
-        print('--------------------------------------------------------')
-        print('Itinéraire numéro', no_itineraire, 'du centroïd', no_centroid)
-        print(pos_geo_itineraire) 
-        print(long_itineraire)
-        if carte_openrouteservice:
-            print('Cet itinéraire s\'appuie sur le réseau routier')
-        else:
-            print('Cet itinéraire ne peut pas s\'appuiyer sur le réseau routier')    
-        print('Nom des POI de l\'itinéraire :', POI_itineraire)
-        print('--------------------------------------------------------', '\n')
+        #print('--------------------------------------------------------')
+        #print('Itinéraire numéro', no_itineraire, 'du centroïd', no_centroid)
+        #print(pos_geo_itineraire) 
+        #print(long_itineraire)
+        #if carte_openrouteservice:
+            #print('Cet itinéraire s\'appuie sur le réseau routier')
+        #else:
+            #print('Cet itinéraire ne peut pas s\'appuiyer sur le réseau routier')    
+        #print('Nom des POI de l\'itinéraire :', POI_itineraire)
+        #print('--------------------------------------------------------', '\n')
       
         if not no_centroid_deja_traite:
             no_centroid_deja_traite = True
             
-            print('--------------------------------------------------------')
-            print('Répartition des POI par mot_clé dans le centroïd', no_centroid)
-            print('--------------------------------------------------------')
-            print(df_POI_zoom_sur_centroid['Mot_clé_POI'][df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].value_counts(),'\n')        
+            #print('--------------------------------------------------------')
+            #print('Répartition des POI par mot_clé dans le centroïd', no_centroid)
+            #print('--------------------------------------------------------')
+            #print(df_POI_zoom_sur_centroid['Mot_clé_POI'][df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].value_counts(),'\n')        
     
-            print('--------------------------------------------------------')
-            print('Répartition des POI par thématique dans le centroïd', no_centroid)
-            print('--------------------------------------------------------')
-            print(df_POI_zoom_sur_centroid['Thématique_POI'][df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].value_counts(), '\n') 
-            print('Nombre de POI total : ', df_POI_zoom_sur_centroid[df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].shape[0],'\n')   
+            #print('--------------------------------------------------------')
+            #print('Répartition des POI par thématique dans le centroïd', no_centroid)
+            #print('--------------------------------------------------------')
+            #print(df_POI_zoom_sur_centroid['Thématique_POI'][df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].value_counts(), '\n') 
+            #print('Nombre de POI total : ', df_POI_zoom_sur_centroid[df_POI_zoom_sur_centroid['POI_dans_itineraire'] == True].shape[0],'\n')   
         
         return no_centroid_deja_traite
      
@@ -330,16 +330,16 @@ if sidebar=="Application Pytineo":
     def analyse_resultats_par_carte(no_centroid, no_itineraire, POI_resto_itineraire, liste_theme_POI_resto, liste_mot_cle_POI_resto, dict_attributs_sejour):    
         
         
-        print('--------------------------------------------------------')
-        print('Itinéraire numéro', no_itineraire, 'du centroïd', no_centroid) 
-        print('Nom des POI "Restauration" ou "Gastronomie" :', POI_resto_itineraire)
-        print('--------------------------------------------------------', '\n')   
+        #print('--------------------------------------------------------')
+        #print('Itinéraire numéro', no_itineraire, 'du centroïd', no_centroid) 
+        #print('Nom des POI "Restauration" ou "Gastronomie" :', POI_resto_itineraire)
+        #print('--------------------------------------------------------', '\n')   
                   
         cpt_gastronomie = 0
         for thématique in liste_theme_POI_resto:
             if thématique == dict_attributs_sejour['Gastronomie']:
                 cpt_gastronomie +=1
-        print('Nombre de POI de type', dict_attributs_sejour['Gastronomie'], ': ', cpt_gastronomie)      
+        #print('Nombre de POI de type', dict_attributs_sejour['Gastronomie'], ': ', cpt_gastronomie)      
                
         cpt_resto = 0  
         cpt_resto_rapide = 0
@@ -348,8 +348,8 @@ if sidebar=="Application Pytineo":
                 cpt_resto +=1
             if mot_cle == dict_attributs_sejour['Restauration rapide']:
                 cpt_resto_rapide +=1
-        print('Nombre de POI de type', dict_attributs_sejour['Restauration'], ': ', cpt_resto) 
-        print('Nombre de POI de type', dict_attributs_sejour['Restauration rapide'], ': ', cpt_resto_rapide, '\n')   
+        #print('Nombre de POI de type', dict_attributs_sejour['Restauration'], ': ', cpt_resto) 
+        #print('Nombre de POI de type', dict_attributs_sejour['Restauration rapide'], ': ', cpt_resto_rapide, '\n')   
     
     
     ##----------------------------------------------------------------------------------------------------------
