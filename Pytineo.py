@@ -274,7 +274,7 @@ if sidebar=="Application Pytineo":
         with img8:
             st.image("Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide",width=75)
         with img9:
-            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie",width=75)
+            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie",width=80)
         with img10:
             st.image("Logo_POIs/logo_site_naturel.png", caption="Site Naturel",width=75)
         with img11:
