@@ -216,7 +216,6 @@ if sidebar=="Application Pytineo":
         
     th, sth = st.columns((1,1))
     #menu de sleection des thèmes
-    
     with th: 
         theme = ("Commerce", "Culture et social","Gastronomie","Loisir","Patrimoine","Site naturel","Sport")
         choix_theme = st.multiselect('Selectionnez votre thème:',theme, default= theme )
@@ -234,6 +233,22 @@ if sidebar=="Application Pytineo":
         
         st.write(list_theme_reference)
         st.write(dict_themes) 
+   with sth: 
+    sous_theme = ("Itinéraire touristique","Itinéraire pédestre","Itinéraire cyclable","Itinéraire routier","Restauration", "Restauration rapide")
+    choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme, default= sous_theme )
+    list_sous_theme_reference = choix_theme
+
+    sous_theme_boolean=[]
+    for i in sous_theme: 
+        if i in list_sous_theme_reference:
+            sous_theme_boolean.append (True)
+        else:
+            sous_theme_boolean.append (False)
+
+    dict_sous_themes =  dict(zip(sous_theme , sous_theme_boolean))
+
+    st.write(list_sous_theme_reference)
+    st.write(dict_sous_themes)
     
     #affichage de la légende des cartes
     with st.expander("Cliquez pour afficher la légende"):
