@@ -220,7 +220,7 @@ if sidebar=="Application Pytineo":
     #menu de selection des thèmes
     with th: 
         theme = ("Commerce", "Culture et social","Gastronomie","Loisir","Patrimoine","Site naturel","Sport")
-        choix_theme = st.multiselect('Selectionnez votre thème:',theme.sort_values(), default= theme )
+        choix_theme = st.multiselect('Selectionnez votre thème:',theme.sort(), default= theme )
         list_theme_reference = choix_theme
         
         theme_boolean=[]
@@ -238,7 +238,7 @@ if sidebar=="Application Pytineo":
         
     with sth: 
         sous_theme = ("Itinéraire touristique","Itinéraire pédestre","Itinéraire cyclable","Itinéraire routier","Restauration", "Restauration rapide")
-        choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme.sort_values(), default= sous_theme )
+        choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme.sort(), default= sous_theme )
         list_sous_theme_reference = choix_theme
         
         sous_theme_boolean=[]
