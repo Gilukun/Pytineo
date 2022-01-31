@@ -202,6 +202,8 @@ if sidebar=="Application Pytineo":
         
         choix_departement = st.selectbox('Selectionnez votre département:', dep)
         nom_depreference = choix_departement
+        df_POI= df_POI.loc[df_POI['Nom_département'].isin([nom_dep_reference])]
+        
     with reg2 : 
         #Menu de sélection de la commune
         commune = df_POI['Nom_commune'].drop_duplicates()
