@@ -193,18 +193,47 @@ if sidebar=="Analyse de données":
 
 #Page 3            
 if sidebar=="Application Pytineo":
-    #Création des menus de sélection des variables
+    reg1, reg2, day = st.columns((1,1,1))
+    with reg1: 
+        #Création des menus de sélection des variables
+        #Menu de selection du département
+        df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
+        dep = df_POI['Nom_département'].drop_duplicates()
+        
+        choix_departement = st.selectbox('Selectionnez votre département:', dep)
+        nom_depreference = choix_departement
+    with reg2 : 
+        #Menu de sélection de la commune
+        commune = df_POI['Nom_commune'].drop_duplicates()
+        
+        choix_commune = st.selectbox('Selectionnez votre commune:', commune)
+        nom_commune_reference = choix_commune
     
-    df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
-    commune = df_POI['Nom_commune'].drop_duplicates()
+    with day:
+        #menu de sélection des jours
+        selection_nb_jour = st.number_input("Nombre de jour de visite", min_value=1, max_value=7, step=1)
+        duree_du_sejour  = selection_nb_jour  
+        
+    th, sth = st.columns((1,1))
+    #menu de sleection des thèmes
     
-    #Menu de sélection de la commune
-    choix_commune = st.selectbox('Selectionnez votre commune:', commune)
-    nom_commune_reference = choix_commune
-    
-    #menu de sélection des jours
-    selection_nb_jour = st.number_input("Nombre de jour de visite", min_value=1, max_value=7, step=1)
-    duree_du_sejour  = selection_nb_jour  
+    with th: 
+        theme = ("Commerce", "Culture et social","Gastronomie","Loisir","Patrimoine","Site naturel","Sport")
+        choix_theme = st.multiselect('Selectionnez votre thème:',theme, default= theme )
+        list_theme_reference = choix_theme
+        
+        theme_boolean=[]
+        for i in theme: 
+            if i in list_theme_reference:
+                theme_boolean.append (True)
+            if i not in list_theme_reference:
+                theme_boolean.append (False)
+        
+        dict_themes =  dict(zip(theme, theme_boolean))
+        
+        
+        st.write(list_theme_reference)
+        st.write(dict_themes) 
     
     #affichage de la légende des cartes
     with st.expander("Cliquez pour afficher la légende"):
@@ -243,20 +272,20 @@ if sidebar=="Application Pytineo":
         
                                                                  
     #Code de l'application Pytineo
-    dict_themes = {"Commerce":True,                                                                       ## thématiques de POI souhaitées par l'utilisateur
-                   "Culture et social":True,
-                   "Gastronomie":True,
-                   "Loisir":True,
-                   "Patrimoine":True,
-                   "Site naturel":True,
-                   "Sport":True}
+    #dict_themes = {"Commerce":True,                                                                       ## thématiques de POI souhaitées par l'utilisateur
+                   #"Culture et social":True,
+                   #"Gastronomie":True,
+                   #"Loisir":True,
+                   #"Patrimoine":True,
+                   #"Site naturel":True,
+                   #"Sport":True}
     
-    dict_sous_themes = {"Itinéraire touristique":True,                                                    ## sous-thématiques de POI souhaitées par l'utilisateur
-                        "Itinéraire pédestre":True,                                                                        
-                        "Itinéraire cyclable":True,                                                                       
-                        "Itinéraire routier":True,                                                                        
-                        "Restauration":True,     
-                        "Restauration rapide":True}
+    #dict_sous_themes = {"Itinéraire touristique":True,                                                    ## sous-thématiques de POI souhaitées par l'utilisateur
+                        #"Itinéraire pédestre":True,                                                                        
+                        #"Itinéraire cyclable":True,                                                                       
+                        #"Itinéraire routier":True,                                                                        
+                        #"Restauration":True,     
+                        #"Restauration rapide":True}
     ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
