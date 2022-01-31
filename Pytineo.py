@@ -200,7 +200,7 @@ if sidebar=="Application Pytineo":
     with reg1: 
         #Menu de selection du département
         dep = df_POI['Nom_département'].drop_duplicates()
-        choix_departement = st.selectbox('Selectionnez votre département:', dep)
+        choix_departement = st.selectbox('Selectionnez votre département:', dep.sort_values())
         nom_dep_reference = choix_departement
         df_POI= df_POI.loc[df_POI['Nom_département'].isin([nom_dep_reference])]
         
@@ -208,7 +208,7 @@ if sidebar=="Application Pytineo":
         #Menu de sélection de la commune
         commune = df_POI['Nom_commune'].drop_duplicates()
         
-        choix_commune = st.selectbox('Selectionnez votre commune:', commune)
+        choix_commune = st.selectbox('Selectionnez votre commune:', commune.sort_values())
         nom_commune_reference = choix_commune
     
     with day:
@@ -220,7 +220,7 @@ if sidebar=="Application Pytineo":
     #menu de selection des thèmes
     with th: 
         theme = ("Commerce", "Culture et social","Gastronomie","Loisir","Patrimoine","Site naturel","Sport")
-        choix_theme = st.multiselect('Selectionnez votre thème:',theme, default= theme )
+        choix_theme = st.multiselect('Selectionnez votre thème:',theme.sort_values(), default= theme )
         list_theme_reference = choix_theme
         
         theme_boolean=[]
@@ -238,7 +238,7 @@ if sidebar=="Application Pytineo":
         
     with sth: 
         sous_theme = ("Itinéraire touristique","Itinéraire pédestre","Itinéraire cyclable","Itinéraire routier","Restauration", "Restauration rapide")
-        choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme, default= sous_theme )
+        choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme.sort_values(), default= sous_theme )
         list_sous_theme_reference = choix_theme
         
         sous_theme_boolean=[]
