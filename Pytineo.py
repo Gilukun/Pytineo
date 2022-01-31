@@ -193,15 +193,15 @@ if sidebar=="Analyse de données":
 
 #Page 3            
 if sidebar=="Application Pytineo":
+    #Création des menus de sélection des variables
+    df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
+    
     reg1, reg2, day = st.columns((1,1,1))
     with reg1: 
-        #Création des menus de sélection des variables
         #Menu de selection du département
-        df_POI= pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
         dep = df_POI['Nom_département'].drop_duplicates()
-        
         choix_departement = st.selectbox('Selectionnez votre département:', dep)
-        nom_depreference = choix_departement
+        nom_dep_reference = choix_departement
         df_POI= df_POI.loc[df_POI['Nom_département'].isin([nom_dep_reference])]
         
     with reg2 : 
@@ -217,7 +217,7 @@ if sidebar=="Application Pytineo":
         duree_du_sejour  = selection_nb_jour  
         
     th, sth = st.columns((1,1))
-    #menu de sleection des thèmes
+    #menu de selection des thèmes
     with th: 
         theme = ("Commerce", "Culture et social","Gastronomie","Loisir","Patrimoine","Site naturel","Sport")
         choix_theme = st.multiselect('Selectionnez votre thème:',theme, default= theme )
