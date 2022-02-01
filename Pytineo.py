@@ -236,10 +236,6 @@ if sidebar=="Application Pytineo":
         
         dict_themes =  dict(zip(theme, theme_boolean))
         
-        
-        st.write(list_theme_reference)
-        st.write(dict_themes) 
-        
     with sth: 
         sous_theme = ("Itinéraire touristique","Itinéraire pédestre","Itinéraire cyclable","Itinéraire routier","Restauration", "Restauration rapide")
         choix_theme = st.multiselect('Selectionnez votre thème:',sous_theme, default= sous_theme )
@@ -253,9 +249,6 @@ if sidebar=="Application Pytineo":
                 sous_theme_boolean.append (False)
         
         dict_sous_themes =  dict(zip(sous_theme , sous_theme_boolean))
-        
-        st.write(list_sous_theme_reference)
-        st.write(dict_sous_themes)
     
     #affichage de la légende des cartes
     with st.expander("Cliquez pour afficher la légende"):
@@ -294,22 +287,6 @@ if sidebar=="Application Pytineo":
         
                                                                  
     #Code de l'application Pytineo
-    #dict_themes = {"Commerce":True,                                                                       ## thématiques de POI souhaitées par l'utilisateur
-                   #"Culture et social":True,
-                   #"Gastronomie":True,
-                   #"Loisir":True,
-                   #"Patrimoine":True,
-                   #"Site naturel":True,
-                   #"Sport":True}
-    
-    #dict_sous_themes = {"Itinéraire touristique":True,                                                    ## sous-thématiques de POI souhaitées par l'utilisateur
-                        #"Itinéraire pédestre":True,                                                                        
-                        #"Itinéraire cyclable":True,                                                                       
-                        #"Itinéraire routier":True,                                                                        
-                        #"Restauration":True,     
-                        #"Restauration rapide":True}
-    ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     ##-------------------------------
     ## Mise en forme des paramètres 
