@@ -8,34 +8,20 @@ Created on Thu Nov 11 17:27:47 2021
 
 #Début du code
 import streamlit as st
-import pandas as pd
-
-
-import plotly.express as px
-#import matplotlib.pyplot as plt
-#import seaborn as sns
-
-#import folium
-#from streamlit_folium import folium_static
-
-#import openrouteservice 
-#from openrouteservice import client
-
-#from sklearn.cluster import KMeans
-
 import streamlit.components.v1 as components
+
+import pandas as pd
 
 import threading
 import time
+import plotly.express as px
+from PIL import Image
 
 import sys
 sys.path.append('https://github.com/Gilukun/Pytineo/blob/main/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
-from PIL import Image
-
-
 
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
@@ -49,122 +35,144 @@ sidebar = st.sidebar.radio("Navigation", ["Acceuil", "Analyse de données", "App
 if sidebar=="Acceuil":
     intro = st.container()
     with intro:
-        col1, col2, col3 = st.columns([1,1,1])
+        col1, col2, col3= st.columns([1,1,1])
         with col2:
-            st.image(Logo, width=500,output_format="auto")
+            st.image("Pytineo_logo_2.png", width=500,output_format="auto")
             
         st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
-        
-        
-        col1, col2, col3 = st.columns([1,1,1])
-        with col2:
-            st.write("Gaëlle Le Hur")
-            st.write("Gilles Virassamy")
-            st.write("Laurent Berrezaie")
-        with col3: 
-            st.image("DataScientest_logo.png", caption=None, width=300, use_column_width=300, clamp=False, channels="RGB", output_format="auto")
-           
-        
-       
+        st.markdown("<h4 style='text-align: center;'>Gaëlle Lehur</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: center;'>Gilles Virassamy</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: center;'>Laurent Berrezaie</h4>", unsafe_allow_html=True)
     
+        
+        footlogo1, footlogo2, footlogo3= st.columns([1,1,1])
+        with footlogo2:
+            st.image("DataScientest_logo.png", caption=None, width=300, clamp=False, channels="RGB", output_format="auto")
 
 #Seconde page 
 if sidebar=="Analyse de données":
+    my_bar = st.progress(0)
+
+    for percent_complete in range(100):
+         time.sleep(0.1)
+         my_bar.progress(percent_complete + 1)
+        
     #ouverture du Dataset
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv")
     
     analysis = st.container()
 
     with analysis:
-        st.header("Analyse de données")
-        st.write('Analyse des datasets pour définir notre projet')
+        st.markdown("<h1 style='text-align: center;'>Exploration des données</h1>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center;'>Données clés</h1>", unsafe_allow_html=True)
+        
+        #affichage de quelques data clés
+        data1,data2,data3= st.columns((1,1,1))
+        with data1 :
+            label1 = '<p style="font-family:sans-serif; color:#9999CC ; font-size: 24px;">Nombre Total de POI</p>'
+            st.markdown(label1, unsafe_allow_html=True) 
+            nb_POI = df['Nom_du_POI'].nunique()
+            st.metric(label="",value=nb_POI)
+            
+        with data2:
+            nb_POI = df['Thématique_POI'].nunique()
+            label1 = '<p style="font-family:sans-serif; color:#FF5733 ; font-size: 24px;">Nombre Total de Thématique</p>'
+            st.markdown(label1, unsafe_allow_html=True) 
+            st.metric(label="", value=nb_POI)
+        
+        with data3:
+            nb_POI = df['Nom_commune'].nunique()
+            label1 = '<p style="font-family:sans-serif; color:#336699 ; font-size: 24px;">Nombre Total de Commune</p>'
+            st.markdown(label1, unsafe_allow_html=True) 
+            st.metric(label="", value=nb_POI)
+        
+        #insertion d'une ligne de sépartion
+        st.markdown("""---""")
+        st.markdown("<h2 style='text-align: center;'>Aperçu du DataSet</h1>", unsafe_allow_html=True)  
         st.dataframe(data=df.head(10))
     
-    theme_count = df['Thématique_POI'].value_counts().sort_values()
+    
     
 #---------------------
 #Camembert avec Plotly
 #---------------------
+    st.markdown("""---""")
+    st.markdown("<h2 style='text-align: center;'>Répartition des type de POI</h1>", unsafe_allow_html=True)
     #Création de 2 colonnes sur la page
     #(2,1) => la première colonne sera 2 fois plus grande que la seconde colonne
-    col1, col2 = st.columns((2,1))
-    with col1 : 
-        PACA_pie = px.pie(theme_count, 
-                                 values=theme_count, 
-                                 names=theme_count.index, 
-                                 title="Répartition des thèmes de POI",
-                                 width=1000, 
-                                 height=500)
-        
-        PACA_pie.update_traces(textposition='outside', textinfo='percent')
-        PACA_pie.update_layout(xaxis_title="Répartition des thèmes des POIs", 
-                               font=dict(family="Verdana", 
-                                    size=13,
-                                    color="Black"),
-                               title={
-                                 'y':0.95,
-                                 'x':0.43,
-                                 'xanchor': 'center',
-                                 'yanchor': 'top'},
-                               title_font_family="Verdana",
-                               title_font_color="Black",
-                               legend_title_font_color="#3C738D")
-        
-        st.plotly_chart(PACA_pie)
-        
     
-    with col2:
-        #Création d'une zone de texte pour commenter le graphique
-        st.write("Note expliquant le graphique")
+    #liste des modalités des Thématique
+    theme_count = df['Thématique_POI'].value_counts().sort_values()
+    
+
+    PACA_pie = px.pie(theme_count, 
+                             values=theme_count, 
+                             names=theme_count.index, 
+                             title="Répartition des thèmes de POI",
+                             width=800, 
+                             height=700)
+
+    PACA_pie.update_traces(textposition='outside', textinfo='percent')
+    PACA_pie.update_layout(xaxis_title="Répartition des thèmes des POIs", 
+                           font=dict(family="Verdana", 
+                                size=13,
+                                color="Black"),
+                           title={
+                             'y':0.95,
+                             'x':0.43,
+                             'xanchor': 'center',
+                             'yanchor': 'top'},
+                           title_font_family="Verdana",
+                           title_font_color="Black",
+                           legend_title_font_color="#3C738D")
+
+    st.plotly_chart(PACA_pie)
     
 
 #---------------------------
 #Histogramme avec Plotly
 #---------------------------
-    col1, col2 = st.columns((2,1))
-    with col1 : 
-        
-        PACA_Hist= px.histogram(df, x=['Nom_département'], 
-                              color= df ['Thématique_POI'],
-                              width=1000,
-                              height=800,
-                              title="Répartition des POIs par départements")
-        
-        #triage des données du plus grand au plus petit (nb total de POI)
-        PACA_Hist.update_xaxes(categoryorder='total descending')
-        
-        #Modification des labels / couleurs/ Police etc...
-        PACA_Hist.update_layout(xaxis_title="Nom du département",
-                          yaxis_title="Thématiques des points d intérêt",
-                          font=dict(family="Verdana", 
-                                    size=13,
-                                    color="Black"),
-                          title={
-                                 'y':0.95,
-                                 'x':0.43,
-                                 'xanchor': 'center',
-                                 'yanchor': 'top'},
-                          title_font_family="Verdana",
-                          title_font_color="Black",
-                          legend_title_font_color="#3C738D")
-        
-        #Affichage du graph
-        st.plotly_chart(PACA_Hist)
-    
-    with col2:
-        #Création d'une zone de texte pour commenter le graphique
-        st.write("Note expliquant le graphique")
-    
- 
+    st.markdown("""---""") 
+    st.markdown("<h2 style='text-align: center;'>Répartition des type de POI par départements</h1>", unsafe_allow_html=True)
+
+    PACA_Hist= px.histogram(df, x=['Nom_département'], 
+                          color= df ['Thématique_POI'],
+                          width=1400,
+                          height=800,
+                          title="Répartition des POIs par départements")
+
+    #triage des données du plus grand au plus petit (nb total de POI)
+    PACA_Hist.update_xaxes(categoryorder='total descending')
+
+    #Modification des labels / couleurs/ Police etc...
+    PACA_Hist.update_layout(xaxis_title="Nom du département",
+                      yaxis_title="Thématiques des points d intérêt",
+                      font=dict(family="Verdana", 
+                                size=13,
+                                color="Black"),
+                      title={
+                             'y':0.95,
+                             'x':0.43,
+                             'xanchor': 'center',
+                             'yanchor': 'top'},
+                      title_font_family="Verdana",
+                      title_font_color="Black",
+                      legend_title_font_color="#3C738D")
+
+    #Affichage du graph
+    st.plotly_chart(PACA_Hist)
+
 #---------------------------
 #DensityMap avec Plotly
-#---------------------------   
+#---------------------------  
+    st.markdown("""---""")
+    st.markdown("<h2 style='text-align: center;'>Carte de densité des POIs</h1>", unsafe_allow_html=True)
     #Création d'un dataframe contenant le total du nombre de chaque thématiques par commune
     dfheat = pd.crosstab (df['Nom_commune'], df['Thématique_POI']).reset_index()
     dfheat['sum']=dfheat.sum(axis=1)
-    
-    #Ajout du total dans le df principal
+
+#Ajout du total dans le df principal
     dico= dict(zip(dfheat['Nom_commune'], dfheat['sum']))
     df['Sum']= df['Nom_commune'].map(dico)
     col1, col2 = st.columns((2,1))
@@ -183,13 +191,8 @@ if sidebar=="Analyse de données":
         PACA_density.update_layout(title= "Densité des Points d'intérêt en France", 
                           title_x= 0.5,
                           font=dict(size=18))
-        
-        st.plotly_chart(PACA_density)
-        
-    with col2:
-        #Création d'une zone de texte pour commenter le graphique
-        st.write("Nous pouvons remarquer une concentration de POI’s dans ces régions : Côtes Bretonnes & Loire Atlantique, Région Parisienne Est, Côtes Atlantiques (Landes, Pays Basques…), Région Méditerranéenne")
 
+        st.plotly_chart(PACA_density)
 
 #Page 3            
 if sidebar=="Application Pytineo":
