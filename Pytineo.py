@@ -38,7 +38,7 @@ if sidebar=="Acceuil":
         col1, col2, col3= st.columns([1,1,1])
         with col2:
             Logo = Image.open("Pytineo_Logo_2.png")
-            st.image("Pytineo_logo_2.png", width=500,output_format="auto")
+            st.image(Logo, width=500,output_format="auto")
             
         st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
