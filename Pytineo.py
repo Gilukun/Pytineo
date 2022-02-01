@@ -139,8 +139,8 @@ if sidebar=="Analyse de données":
 
     PACA_Hist= px.histogram(df, x=['Nom_département'], 
                           color= df ['Thématique_POI'],
-                          width=1400,
-                          height=800,
+                          width=500,
+                          height=400,
                           title="Répartition des POIs par départements")
 
     #triage des données du plus grand au plus petit (nb total de POI)
