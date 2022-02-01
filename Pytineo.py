@@ -159,7 +159,8 @@ if sidebar=="Analyse de données":
                              'yanchor': 'top'},
                       title_font_family="Verdana",
                       title_font_color="Black",
-                      legend_title_font_color="#3C738D")
+                      legend_title_font_color="#3C738D",
+                           plot_bgcolor="#fff")
 
     #Affichage du graph
     st.plotly_chart(PACA_Hist)
