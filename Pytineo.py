@@ -23,8 +23,29 @@ import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
 
+import s3fs
+import os
+
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
+
+# Create connection object.
+# `anon=False` means not anonymous, i.e. it uses access keys to pull data.
+fs = s3fs.S3FileSystem(anon=False)
+
+# Retrieve file contents.
+# Uses st.cache to only rerun when the query changes or after 10 min.
+@st.cache(ttl=600)
+def read_file(filename):
+    with fs.open(filename) as f:
+        return f.read().decode("utf-8")
+
+content = read_file("testbucket-jrieke/myfile.csv")
+
+# Print results.
+for line in content.strip().split("\n"):
+    name, pet = line.split(",")
+    st.write(f"{name} has a :{pet}:")
 
 Logo = Image.open("Pytineo_Logo_2.png")
 st.sidebar.image(Logo, width=100)
