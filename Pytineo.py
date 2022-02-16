@@ -436,7 +436,7 @@ if sidebar=="Application Pytineo":
     st.markdown("""---""") 
     
     #Création des menus de sélection des variables
-    df= pd.read_csv("Datatourisme.csv",low_memory=False)
+    df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv", low_memory=False)
     df_POI = df[~df['Nom_commune'].str.contains('Arrondissement')]
     #df_limit = df.groupby(df['Nom_commune'], as_index= False).agg({'Nom_du_POI':'count'})
     #dico_POIs= dict(zip(df_limit['Nom_commune'], df_limit['Nom_du_POI']))
