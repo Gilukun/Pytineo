@@ -278,8 +278,8 @@ if sidebar=="Analyse de données":
                             zoom=6,
                             mapbox_style="carto-positron",
                             color_continuous_scale = "Blues",
-                            width=700,
-                            height=700)
+                            width=1000,
+                            height=1000)
     PACA_density.update_layout(title= "Densité des Points d'intérêt en PACA", 
                       title_x= 0.5,
                       font=dict(size=18),
@@ -387,9 +387,7 @@ if sidebar=="Analyse de données":
         
         #Affichage du graph
         st.plotly_chart(Comp_bar)
-        
-        
-        
+   
 if sidebar=="Méthodologie": 
     st.markdown("<h1 style='text-align: center;'> Principe de Construction d'un Itinéraire</h1>", unsafe_allow_html=True)
     prez1,middle,prez2, = st.columns((1,.6,1))
