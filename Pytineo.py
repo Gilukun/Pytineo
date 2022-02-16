@@ -29,7 +29,7 @@ import Pytineo_module_cartes
 #affichage de la page sur toute sa largeur. Ce code doit toujour être le premier à être entré après l'import des modules
 st.set_page_config(layout="wide")
 
-st.sidebar.image("main/Pytineo_Logo_2.png", width=100)
+st.sidebar.image("Pytineo_Logo_2.png", width=100)
 #creation de la navigation du site (menu de gauche)
 sidebar = st.sidebar.radio("Navigation", ["Accueil", "Analyse de données","Méthodologie", "Application Pytineo"]) 
 
