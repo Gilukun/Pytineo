@@ -264,59 +264,29 @@ if sidebar=="Analyse de données":
     #Création d'un dataframe contenant le total du nombre de chaque thématiques par commune
     dfheat = pd.crosstab (df['Nom_commune'], df['Thématique_POI']).reset_index()
     dfheat['Nbr POIs']=dfheat.sum(axis=1)
-    
-    st.dataframe(data= dfheat)
+   
     #Ajout du total dans le df principal
     dico= dict(zip(dfheat['Nom_commune'], dfheat['Nbr POIs']))
     df['Nbr POIs']= df['Nom_commune'].map(dico)
-    
-    col1, col2 = st.columns((1,1))
-    with col1 : 
-        #Création du DensityMap
-        PACA_density= px.density_mapbox(df, 
-                                lat='Latitude', lon='Longitude', 
-                                z='Nbr POIs', 
-                                radius=10,
-                                center=dict(lat=43.9351691, lon=6.0679194),
-                                zoom=6,
-                                mapbox_style="carto-positron",
-                                color_continuous_scale = "Blues",
-                                width=700,
-                                height=700)
-        PACA_density.update_layout(title= "Densité des Points d'intérêt en France", 
-                          title_x= 0.5,
-                          font=dict(size=18),
-                          legend_title_text='Nbr POIs')
-        
-        st.plotly_chart(PACA_density)
-        
-    with col2:
-        dfheat2 = pd.crosstab (df['Nom_commune'], df['Nbre_touristes']).reset_index()
-        #dfheat2['Nbr Touriste']=dfheat2.sum(axis=1)
-        
-        st.dataframe(data= dfheat2.head())
-        #Ajout du total dans le df principal
-        dico= dict(zip(dfheat2['Nom_commune'], dfheat2['Nbr Touriste']))
-        df['Nbr Tour']= df['Nom_commune'].map(dico)
 
-        #Création du DensityMap
-        PACA_density= px.density_mapbox(df, 
-                                lat='Latitude', lon='Longitude', 
-                                z='Nbr Tour', 
-                                radius=10,
-                                center=dict(lat=43.9351691, lon=6.0679194),
-                                zoom=6,
-                                mapbox_style="carto-positron",
-                                color_continuous_scale = "Tealgrn",
-                                width=700,
-                                height=700)
-        PACA_density.update_layout(title= "Densité du nombre de touriste en France", 
-                          title_x= 0.5,
-                          font=dict(size=18),
-                          legend_title_text='Nbr Touriste')
-        
-        st.plotly_chart(PACA_density)
-        
+    #Création du DensityMap
+    PACA_density= px.density_mapbox(df, 
+                            lat='Latitude', lon='Longitude', 
+                            z='Nbr POIs', 
+                            radius=10,
+                            center=dict(lat=43.9351691, lon=6.0679194),
+                            zoom=6,
+                            mapbox_style="carto-positron",
+                            color_continuous_scale = "Blues",
+                            width=700,
+                            height=700)
+    PACA_density.update_layout(title= "Densité des Points d'intérêt en PACA", 
+                      title_x= 0.5,
+                      font=dict(size=18),
+                      legend_title_text='Nbr POIs')
+
+    st.plotly_chart(PACA_density)
+
 #---------------------------
 #Comparaison Paris vs PACA
  #--------------------------- 
