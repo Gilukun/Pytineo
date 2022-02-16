@@ -61,9 +61,9 @@ if sidebar=="Accueil":
 if sidebar=="Analyse de données":
     latest_iteration = st.empty()
     bar = st.progress(0)
-    num = 20
+    num = 10
     for i in range(num):
-        latest_iteration.text(f'{num - i} seconds left')
+        latest_iteration.text(f'{num - i} secondes')
         bar.progress((100//num)*i)
         time.sleep(1)
 
