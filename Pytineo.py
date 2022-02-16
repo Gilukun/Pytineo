@@ -225,73 +225,8 @@ if sidebar=="Analyse de données":
 #---------------------------
 #Histogramme avec Plotly
 #---------------------------  
-    st.markdown("""---""") 
-    st.markdown("<h2 style='text-align: center;'>Répartition des types de POI par départements</h1>", unsafe_allow_html=True)
-    PACA_Hist= px.histogram(df, x=['Nom_département'], 
-                          color= df ['Thématique_POI'],
-                          width=1450,
-                          height=790,
-                          title="Répartition des POIs par départements")
-    
-    #triage des données du plus grand au plus petit (nb total de POI)
-    PACA_Hist.update_xaxes(categoryorder='total descending')
-    
-    #Modification des labels / couleurs/ Police etc...
-    PACA_Hist.update_layout(xaxis_title="Nom du département",
-                      yaxis_title="Thématiques des points d intérêt",
-                      font=dict(family="Arial", 
-                                size=13,
-                                color="#9b4595"),
-                      title={
-                             'y':0.95,
-                             'x':0.43,
-                             'xanchor': 'center',
-                             'yanchor': 'top'},
-                      title_font_family="Arial",
-                      title_font_color="Black",
-                      legend_title_font_color="#3C738D",
-                      plot_bgcolor="#fff")
-    
-    #Affichage du graph
-    st.plotly_chart(PACA_Hist)
-
- 
-#---------------------------
-#DensityMap avec Plotly
-#---------------------------   
     st.markdown("""---""")
-    st.markdown("<h2 style='text-align: center;'>Cartes de densités</h1>", unsafe_allow_html=True)
-    #Création d'un dataframe contenant le total du nombre de chaque thématiques par commune
-    dfheat = pd.crosstab (df['Nom_commune'], df['Thématique_POI']).reset_index()
-    dfheat['Nbr POIs']=dfheat.sum(axis=1)
-   
-    #Ajout du total dans le df principal
-    dico= dict(zip(dfheat['Nom_commune'], dfheat['Nbr POIs']))
-    df['Nbr POIs']= df['Nom_commune'].map(dico)
-
-    #Création du DensityMap
-    PACA_density= px.density_mapbox(df, 
-                            lat='Latitude', lon='Longitude', 
-                            z='Nbr POIs', 
-                            radius=10,
-                            center=dict(lat=43.9351691, lon=6.0679194),
-                            zoom=6,
-                            mapbox_style="carto-positron",
-                            color_continuous_scale = "Blues",
-                            width=1000,
-                            height=1000)
-    PACA_density.update_layout(title= "Densité des Points d'intérêt en PACA", 
-                      title_x= 0.5,
-                      font=dict(size=18),
-                      legend_title_text='Nbr POIs')
-
-    st.plotly_chart(PACA_density)
-
-#---------------------------
-#Comparaison Paris vs PACA
- #--------------------------- 
-    st.markdown("""---""")
-    st.markdown("<h2 style='text-align: center;'>Graph Groupé des Types de POIs</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Graphique groupé des Types de POIs par départements</h1>", unsafe_allow_html=True)
     liste_departements1 =[75,92,78,77,91,93,94]
     liste_departements2 =[4,5,6,13,83,84]
     df_paca  = df.loc[df['Code_département'].isin(liste_departements2)]   
@@ -325,6 +260,39 @@ if sidebar=="Analyse de données":
     
     #Affichage du graph
     st.plotly_chart(PACA)
+
+ 
+#---------------------------
+#DensityMap avec Plotly
+#---------------------------   
+    st.markdown("""---""")
+    st.markdown("<h2 style='text-align: center;'>Cartes de densités</h1>", unsafe_allow_html=True)
+    #Création d'un dataframe contenant le total du nombre de chaque thématiques par commune
+    dfheat = pd.crosstab (df['Nom_commune'], df['Thématique_POI']).reset_index()
+    dfheat['Nbr POIs']=dfheat.sum(axis=1)
+   
+    #Ajout du total dans le df principal
+    dico= dict(zip(dfheat['Nom_commune'], dfheat['Nbr POIs']))
+    df['Nbr POIs']= df['Nom_commune'].map(dico)
+
+    #Création du DensityMap
+    PACA_density= px.density_mapbox(df, 
+                            lat='Latitude', lon='Longitude', 
+                            z='Nbr POIs', 
+                            radius=10,
+                            center=dict(lat=43.9351691, lon=6.0679194),
+                            zoom=6,
+                            mapbox_style="carto-positron",
+                            color_continuous_scale = "Blues",
+                            width=1000,
+                            height=1000)
+    PACA_density.update_layout(title= "Densité des Points d'intérêt en PACA", 
+                      title_x= 0.5,
+                      font=dict(size=18),
+                      legend_title_text='Nbr POIs')
+
+    st.plotly_chart(PACA_density)
+    
 
 #---------------------------
 #Comparaison avec Plotly Bar
