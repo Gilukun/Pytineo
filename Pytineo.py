@@ -59,15 +59,12 @@ if sidebar=="Accueil":
 
 #Seconde page 
 if sidebar=="Analyse de données":
-    latest_iteration = st.empty()
-    bar = st.progress(0)
-    num = 1
-    for i in range(0,100):
-        latest_iteration.text(f'{num + i} %')
-        bar.progress((100//num)*i)
-        time.sleep(1)
-    bar.empty()
-    latest_iteration.empty()
+    my_bar = st.progress(0)
+
+    for percent_complete in range(100):
+         time.sleep(0.1)
+         my_bar.progress(percent_complete + 1)
+    my_bar.empty()
 
     #ouverture du Dataset
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv", low_memory=False)
