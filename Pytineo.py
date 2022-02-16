@@ -519,7 +519,7 @@ if sidebar=="Application Pytineo":
     with st.expander("Cliquez pour afficher la légende"):
         img1,img2,img3,img4,img5,img6,img7= st.columns((1,1,1,1,1,1,1))
         with img1:
-            st.image("Logos_POIs/logo_commerce_service.png", caption="Commerce", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_commerce_service.png", caption="Commerce", width=100, channels="RGB", output_format="auto")
         with img2:
             st.image("Logos_POIs/logo_culture_social.png", caption="Culture/Social", width=100, channels="RGB", output_format="auto")
         with img3:
