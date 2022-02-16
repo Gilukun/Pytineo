@@ -39,11 +39,11 @@ sidebar = st.sidebar.radio("Navigation", ["Accueil", "Analyse de données","Mét
 #Premère page
 if sidebar=="Accueil":
     intro = st.container()
-    image = Image.open("main/Pytineo_logo_2.png")
+    #image = Image.open("Pytineo_logo_2.png")
     with intro:
         col1, col2, col3= st.columns([1,1,1])
         with col2:
-            st.image(image, width=500,output_format="png")
+            st.image("Pytineo_logo_2.png", width=500,output_format="png")
             
         st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
