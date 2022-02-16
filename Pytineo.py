@@ -564,7 +564,7 @@ if sidebar=="Application Pytineo":
     ##----------
     ## Classes 
     ##----------
-    ## les traitements de construction des itinéraires autour des centroids se font en parallèle afin d'optimiser le temps de réponse global
+    ## les traitements de construction des itinéraires autour des centroids se font en parallèle afin d'optimiser le temps de réponse global 
     class traitement_par_centroid (threading.Thread):
         def __init__(self, no_centroid, lat_centroid, lon_centroid, nbre_itineraires, dataframe):
             threading.Thread.__init__(self)
