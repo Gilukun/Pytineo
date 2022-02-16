@@ -39,7 +39,7 @@ sidebar = st.sidebar.radio("Navigation", ["Accueil", "Analyse de données","Mét
 #Premère page
 if sidebar=="Accueil":
     intro = st.container()
-    image = Image.open("Pytineo_logo_2.png")
+    image = Image.open('https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.png')
     with intro:
         col1, col2, col3= st.columns([1,1,1])
         with col2:
