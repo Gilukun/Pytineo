@@ -277,7 +277,7 @@ if sidebar=="Analyse de données":
                                 z='Nbr POIs', 
                                 radius=10,
                                 center=dict(lat=43.9351691, lon=6.0679194),
-                                zoom=7,
+                                zoom=6,
                                 mapbox_style="carto-positron",
                                 color_continuous_scale = "Blues",
                                 width=700,
@@ -291,7 +291,7 @@ if sidebar=="Analyse de données":
         
     with col2:
         dfheat2 = pd.crosstab (df['Nom_commune'], df['Nbre_touristes']).reset_index()
-        dfheat2['Nbr Touriste']=dfheat.sum(axis=1)
+        dfheat2['Nbr Touriste']=dfheat2.sum(axis=1)
         
         #Ajout du total dans le df principal
         dico= dict(zip(dfheat2['Nom_commune'], dfheat2['Nbr Touriste']))
@@ -303,7 +303,7 @@ if sidebar=="Analyse de données":
                                 z='Nbr Touriste', 
                                 radius=10,
                                 center=dict(lat=43.9351691, lon=6.0679194),
-                                zoom=7,
+                                zoom=6,
                                 mapbox_style="carto-positron",
                                 color_continuous_scale = "Tealgrn",
                                 width=700,
