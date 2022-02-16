@@ -169,7 +169,7 @@ if sidebar=="Analyse de données":
             st.markdown("<p style='text-align: left;'>[Mot_clé] [Mot_clé_FR] [Thématique]</p>", unsafe_allow_html=True)
         
         with cat8:  
-           st.image("Associate.png",width=35, channels="RGB", output_format="auto")
+           st.image("Icones/Associate.png",width=35, channels="RGB", output_format="auto")
         with cat9:
             st.markdown("<p style='text-align: left;'>Association des thématiques du dataset intermédiaire aux POIs dans le dataset final</p>", unsafe_allow_html=True)
 
