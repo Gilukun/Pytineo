@@ -21,7 +21,7 @@ import threading
 import time
 
 import sys
-sys.path.append('/Documents/GitHub/Pytineo')
+sys.path.append('https://github.com/Gilukun/Pytineo/blob/main/Pytineo')
 import Pytineo_module_clustering
 import Pytineo_module_itineraires
 import Pytineo_module_cartes
