@@ -291,43 +291,11 @@ if sidebar=="Analyse de données":
 #Comparaison Paris vs PACA
  #--------------------------- 
     st.markdown("""---""")
-    st.markdown("<h2 style='text-align: center;'>Comparaison Régions Parisienne et PACA</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Graph Groupé des Types de POIs</h1>", unsafe_allow_html=True)
     liste_departements1 =[75,92,78,77,91,93,94]
     liste_departements2 =[4,5,6,13,83,84]
-    
-    df_regionsparis  = df.loc[df['Code_département'].isin(liste_departements1)]
     df_paca  = df.loc[df['Code_département'].isin(liste_departements2)]   
 
-    Paris= px.histogram(df_regionsparis,
-                      x= 'Nom_département',
-                      color= 'Thématique_POI',
-                      width=1400,
-                      height=500,
-                      title="Comparaison des POIs: Paris / PACA",
-                      barmode='group')
-
-    #Modification des labels / couleurs/ Police etc...
-    Paris.update_layout(xaxis_title="Départements(Paris)",
-                              font=dict(family="Arial",
-                                     size=13,
-                                     color="#9b4595"),
-                           title={'y':0.95,
-                                  'x':0.43,
-                                  'xanchor': 'center',
-                                  'yanchor': 'top'},
-                          title_font_family="Arial",
-                          title_font_color="Black",
-                          showlegend=True,
-                          legend_title_text="Thématique des POIs",
-                          plot_bgcolor="#fff")
-                          
-    Paris.update_xaxes(showgrid=True, zeroline=False, linecolor='black')
-    Paris.update_yaxes(showgrid=True, zeroline=False, linecolor='black', gridcolor='#9b4595')
-    
-    Paris.update_layout(xaxis={'categoryorder':'total descending'})
-    
-    #Affichage du graph
-    st.plotly_chart(Paris)
     PACA= px.histogram(df_paca,
                       x= 'Nom_département',
                       color= 'Thématique_POI',
