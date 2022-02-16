@@ -43,7 +43,7 @@ if sidebar=="Accueil":
     with intro:
         col1, col2, col3= st.columns([1,1,1])
         with col2:
-            st.image('https://github.com/Gilukun/Pytineo/blob/main/Pytineo_Logo_2.jpg', width=500)
+            st.image("DataScientest_logo.png", caption=None, width=200, channels="RGB", output_format="auto")
             
         st.markdown("<h1 style='text-align: center;'>Application de création d itinéraires</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='text-align: center;'>Réalisée en language Python</h3>", unsafe_allow_html=True)
