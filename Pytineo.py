@@ -521,34 +521,34 @@ if sidebar=="Application Pytineo":
         with img1:
             st.image("Logo_POIs/logo_commerce_service.png", caption="Commerce", width=100, channels="RGB", output_format="auto")
         with img2:
-            st.image("Logos_POIs/logo_culture_social.png", caption="Culture/Social", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_culture_social.png", caption="Culture/Social", width=100, channels="RGB", output_format="auto")
         with img3:
-            st.image("Logos_POIs/logo_evt_sportif.png", caption="Evènement Sportif", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_evt_sportif.png", caption="Evènement Sportif", width=100, channels="RGB", output_format="auto")
         with img4:
-            st.image("Logos_POIs/logo_itineraire.png", caption="Itinéraires", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_itineraire.png", caption="Itinéraires", width=100, channels="RGB", output_format="auto")
         with img5:
-            st.image("Logos_POIs/logo_loisir.png", caption="Loisir", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_loisir.png", caption="Loisir", width=100, channels="RGB", output_format="auto")
         with img6:
-            st.image("Logos_POIs/logo_marche_a_pied.png", caption="Marche à pied", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_marche_a_pied.png", caption="Marche à pied", width=100, channels="RGB", output_format="auto")
         with img7:
-            st.image("Logos_POIs/logo_patrimoine.png", caption="Patrimoine", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_patrimoine.png", caption="Patrimoine", width=100, channels="RGB", output_format="auto")
           
        
         img8,img9,img10,img11,img12,img13,img14= st.columns((1,1,1,1,1,1,1)) 
         with img8:
-            st.image("Logos_POIs/logo_restauration_rapide.png", caption="Retauration Rapide", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_restauration_rapide.png", caption="Retauration Rapide", width=100, channels="RGB", output_format="auto")
         with img9:
-            st.image("Logos_POIs/logo_restauration.png", caption="Gastronomie", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_restauration.png", caption="Gastronomie", width=100, channels="RGB", output_format="auto")
         with img10:
-            st.image("Logos_POIs/logo_site_naturel.png", caption="Site Naturel", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_site_naturel.png", caption="Site Naturel", width=100, channels="RGB", output_format="auto")
         with img11:
-            st.image("Logos_POIs/logo_sports.png", caption="Sport", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_sports.png", caption="Sport", width=100, channels="RGB", output_format="auto")
         with img12:
-            st.image("Logos_POIs/logo_terroir.png", caption="Terroir", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_terroir.png", caption="Terroir", width=100, channels="RGB", output_format="auto")
         with img13:
-            st.image("Logos_POIs/logo_velo.png", caption="Velo", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_velo.png", caption="Velo", width=100, channels="RGB", output_format="auto")
         with img14:
-            st.image("Logos_POIs/logo_voiture.png", caption="Voiture", width=100, channels="RGB", output_format="auto")
+            st.image("Logo_POIs/logo_voiture.png", caption="Voiture", width=100, channels="RGB", output_format="auto")
     
     ##-------------------------------
     ## Mise en forme des paramètres 
