@@ -136,7 +136,7 @@ if sidebar=="Analyse de données":
            st.markdown("<p style='text-align: left;'>Les datasets contiennent toutes les informations nécessaires (Nom POI/ Adress / Lat/Lon /Region / Communes/Code Postaux/etc..)</p>", unsafe_allow_html=True)
             
         with clean8:  
-            st.image("Icones/Clean.png",caption=None, width=60, channels="RGB", output_format="auto")
+            st.image("Icones/clean.png",caption=None, width=60, channels="RGB", output_format="auto")
         with clean9:
            st.markdown("<p style='text-align: left;'>Supression des colonnes inutiles au projet</p>", unsafe_allow_html=True)
            
@@ -157,19 +157,19 @@ if sidebar=="Analyse de données":
             
         cat4, cat5, cat6, cat7, cat8, cat9= st.columns((0.1,1,0.2,1,0.2,1))
         with cat4:  
-           st.image("https://github.com/Gilukun/Pytineo/tree/main/Icones/URL.png",width=35)
+           st.image("Icones/URL.png",width=35, channels="RGB", output_format="auto")
         with cat5:
             st.markdown("<p style='text-align: left;'>Recherche du type de POI basé sur mots clés présents dans l'URL </p>", unsafe_allow_html=True)
             st.markdown("https://www.datatourisme.gouv.fr/ontology/core#CulturalSite|")
         
         with cat6:  
-           st.image("https://github.com/Gilukun/Pytineo/tree/main/Icones/dataset.png",width=35)
+           st.image("Icones/dataset.png",width=35, channels="RGB", output_format="auto")
         with cat7:
             st.markdown("<p style='text-align: left;'>Nouveau dataset contenant:</p>", unsafe_allow_html=True)
             st.markdown("<p style='text-align: left;'>[Mot_clé] [Mot_clé_FR] [Thématique]</p>", unsafe_allow_html=True)
         
         with cat8:  
-           st.image("https://github.com/Gilukun/Pytineo/tree/main/Icones/Associate.png",width=35)
+           st.image("Associate.png",width=35, channels="RGB", output_format="auto")
         with cat9:
             st.markdown("<p style='text-align: left;'>Association des thématiques du dataset intermédiaire aux POIs dans le dataset final</p>", unsafe_allow_html=True)
 
