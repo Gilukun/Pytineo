@@ -293,6 +293,7 @@ if sidebar=="Analyse de données":
         dfheat2 = pd.crosstab (df['Nom_commune'], df['Nbre_touristes']).reset_index()
         dfheat2['Nbr Touriste']=dfheat2.sum(axis=1)
         
+        st.dataframe(data= dfheat2.head())
         #Ajout du total dans le df principal
         dico= dict(zip(dfheat2['Nom_commune'], dfheat2['Nbr Touriste']))
         df['Nbr Tour']= df['Nom_commune'].map(dico)
