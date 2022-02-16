@@ -298,7 +298,7 @@ if sidebar=="Analyse de données":
         df['Nbr Touriste']= df['Nom_commune'].map(dico)
 
         #Création du DensityMap
-        PACA_density= px.density_mapbox(df, 
+        PACA_density= px.density_mapbox(dfheat2, 
                                 lat='Latitude', lon='Longitude', 
                                 z='Nbr Touriste', 
                                 radius=10,
