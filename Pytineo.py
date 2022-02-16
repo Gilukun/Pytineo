@@ -66,6 +66,7 @@ if sidebar=="Analyse de données":
         latest_iteration.text(f'{num - i} secondes')
         bar.progress((100//num)*i)
         time.sleep(1)
+     bar.empty()
 
     #ouverture du Dataset
     df = pd.read_csv("datatourisme.POI_OK_20210921.PACA.csv", low_memory=False)
