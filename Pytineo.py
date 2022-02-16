@@ -295,12 +295,12 @@ if sidebar=="Analyse de données":
         
         #Ajout du total dans le df principal
         dico= dict(zip(dfheat2['Nom_commune'], dfheat2['Nbr Touriste']))
-        df['Nbr Touriste']= df['Nom_commune'].map(dico)
+        df['Nbr Tour']= df['Nom_commune'].map(dico)
 
         #Création du DensityMap
-        PACA_density= px.density_mapbox(dfheat2, 
+        PACA_density= px.density_mapbox(df, 
                                 lat='Latitude', lon='Longitude', 
-                                z='Nbr Touriste', 
+                                z='Nbr Tour', 
                                 radius=10,
                                 center=dict(lat=43.9351691, lon=6.0679194),
                                 zoom=6,
