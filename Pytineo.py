@@ -63,7 +63,7 @@ if sidebar=="Analyse de données":
          my_bar.progress(percent_complete + 1)
 
     #ouverture du Dataset
-    df = pd.read_csv("Datatourisme.csv", low_memory=False)
+    df = pd.read_csv("POI_OK_20210921.PACA.csv", low_memory=False)
     #df_limit = df.groupby(df['Nom_commune'], as_index= False).agg({'Nom_du_POI':'count'})
     #st.dataframe(data=df_limit.head(15))
     
